@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "233433089073",
+    "project_id": "kreasi-nusantara-71e5a",
+    "storage_bucket": "kreasi-nusantara-71e5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233433089073:android:cf048624e7410426088110",
+        "android_client_info": {
+          "package_name": "com.example.kreasi_nusantara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233433089073-uo8ek513ds19kvgnrqpouv3n6tm0hpuu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT3trs1jsi4DCJdxdz9-9ZqYWX0vmPauQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233433089073-uo8ek513ds19kvgnrqpouv3n6tm0hpuu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
