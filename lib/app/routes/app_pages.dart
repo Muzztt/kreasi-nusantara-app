@@ -47,8 +47,8 @@ import '../modules/password_page/new_password/views/new_password_view.dart';
 import '../modules/product/product_page/views/product_view.dart';
 import '../modules/profile_page/profile/bindings/profile_binding.dart';
 import '../modules/profile_page/profile/views/profile_view.dart';
-import '../modules/register/bindings/register_binding.dart';
-import '../modules/register/views/register_view.dart';
+import '../modules/register_page/register/bindings/register_binding.dart';
+import '../modules/register_page/register/views/register_view.dart';
 
 part 'app_routes.dart';
 

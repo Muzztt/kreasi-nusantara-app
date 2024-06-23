@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:kreasi_nusantara/app/modules/login_page/main_navigation/views/main_navigation_view.dart';
+import 'package:kreasi_nusantara/app/modules/register_page/register_detail/views/register_detail_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import 'package:kreasi_nusantara/shared/util/dialog/custom_bottom_sheet/custom_bottom_sheet.dart';
-import 'package:kreasi_nusantara/shared/util/dialog/info_dialog/info_dialog.dart';
 import 'package:kreasi_nusantara/shared/util/validator/validator.dart';
 import 'package:kreasi_nusantara/shared/widget/form/button/button.dart';
 import 'package:kreasi_nusantara/shared/widget/form/textfield/textfield.dart';
 
-import '../controllers/new_password_controller.dart';
+import '../controllers/register_controller.dart';
 
-class NewPasswordView extends GetView<NewPasswordController> {
-  const NewPasswordView({super.key});
+class RegisterView extends GetView<RegisterController> {
+  const RegisterView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +35,7 @@ class NewPasswordView extends GetView<NewPasswordController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Akun berhasil dipulihkan",
+                  "Buat akun baru",
                   style: TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.bold,
@@ -47,39 +46,34 @@ class NewPasswordView extends GetView<NewPasswordController> {
                   height: 4.0,
                 ),
                 const Text(
-                  "silahkan masukkan password baru anda",
+                  "sebelum itu, perkenalkan nama anda",
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: 24.0,
                 ),
                 QTextField(
-                  label: "Masukkan Password Baru",
-                  obscure: true,
-                  validator: Validator.required,
-                  suffixIcon: Icons.password,
+                  label: "Nama Depan",
+                  validator: Validator.email,
+                  suffixIcon: Icons.email,
                   value: null,
                   onChanged: (value) {},
                 ),
                 QTextField(
-                  label: "Masukkan Kembali Password",
-                  obscure: true,
-                  validator: Validator.required,
-                  suffixIcon: Icons.password,
+                  label: "Nama Belakang",
+                  validator: Validator.email,
+                  suffixIcon: Icons.email,
                   value: null,
                   onChanged: (value) {},
                 ),
                 const SizedBox(
-                  height: 24.0,
+                  height: 18.0,
                 ),
                 QButton(
-                  label: "Masuk",
-                  colorButton: primaryColor,
-                  onPressed: () {
-                    showInfoDialog(context);
-                  },
+                  label: "Lanjut",
+                  onPressed: () => Get.offAll(const RegisterDetailView()),
                 ),
               ],
             ),
@@ -88,24 +82,4 @@ class NewPasswordView extends GetView<NewPasswordController> {
       ),
     );
   }
-}
-
-void showInfoDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return InfoDialog(
-        title: "Basic dialog title",
-        message: "Login Success masbro",
-        buttonLabel: "Label",
-        icon: Icons.check_circle_rounded,
-        iconColor: Colors.green,
-        onPressed: () {
-          Get.offAll(
-            const MainNavigationView(),
-          );
-        },
-      );
-    },
-  );
 }

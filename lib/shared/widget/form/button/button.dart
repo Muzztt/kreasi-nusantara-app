@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
+
 class QButton extends StatelessWidget {
   final String label;
   final Function onPressed;
@@ -22,7 +22,7 @@ class QButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? MediaQuery.of(context).size.width,
-      height: height ?? 47,
+      height: height ?? 42,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(

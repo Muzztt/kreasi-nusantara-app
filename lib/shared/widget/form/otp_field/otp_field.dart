@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 
 class QOtpField extends StatefulWidget {
   const QOtpField({
@@ -83,9 +84,11 @@ class _QOtpFieldState extends State<QOtpField> {
             obscureText: widget.obscure,
             decoration: InputDecoration(
               border: OutlineInputBorder(
+                borderSide: BorderSide(color: primaryColor),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: primaryColor),
                 borderRadius: BorderRadius.circular(4.0),
               ),
             ),

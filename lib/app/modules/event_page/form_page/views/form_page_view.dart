@@ -69,7 +69,7 @@ class FormPageView extends StatelessWidget {
               value: null,
               onChanged: (value) {},
             ),
-            const SizedBox(height: 200.0),
+            const Spacer(),
             Container(
               padding: const EdgeInsets.all(12.0),
               child: QActionButton(
@@ -82,7 +82,6 @@ class FormPageView extends StatelessWidget {
                 },
                 verticalPadding: 10.0, // Atur padding vertikal
                 horizontalPadding: 300.0, // Atur padding horizontal
-
               ),
             ),
           ],

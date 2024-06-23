@@ -4,6 +4,7 @@ import 'package:kreasi_nusantara/app/modules/profile_page/edit_profile/views/edi
 import 'package:kreasi_nusantara/app/modules/profile_page/faq/views/faq_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/history/views/history_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/privacy/views/privacy_view.dart';
+import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -13,7 +14,7 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF980019),
+        backgroundColor: primaryColor,
         elevation: 0,
       ),
       body: Column(

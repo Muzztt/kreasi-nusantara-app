@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kreasi_nusantara/app/modules/login_page/login/views/login_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
-import 'package:kreasi_nusantara/app/modules/register/views/register1_view.dart';
-import 'package:kreasi_nusantara/app/modules/register/views/register_view.dart';
+import 'package:kreasi_nusantara/app/modules/register_page/register/views/register_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import 'package:kreasi_nusantara/shared/util/dialog/custom_bottom_sheet/custom_bottom_sheet.dart';
 import 'package:kreasi_nusantara/shared/widget/form/button/button.dart';
@@ -62,7 +61,7 @@ class OnboardingView extends GetView<OnboardingController> {
                       child: QOutlineButton(
                           label: "Daftar",
                           color: primaryColor,
-                          onPressed: () => Get.offAll(const Register1View())),
+                          onPressed: () => Get.offAll(const RegisterView())),
                     ),
                     const SizedBox(
                       width: 8.0,

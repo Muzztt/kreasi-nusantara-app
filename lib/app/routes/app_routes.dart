@@ -31,6 +31,8 @@ abstract class Routes {
   static const CHECKOUT_NAVIGATION = _Paths.CHECKOUT_NAVIGATION;
   static const ARTICLE_DETAIL = _Paths.ARTICLE_DETAIL;
   static const EVENT_DETAIL = _Paths.EVENT_DETAIL;
+  static const REGISTER_DETAIL = _Paths.REGISTER_DETAIL;
+  static const OTP_REGISTER = _Paths.OTP_REGISTER;
 }
 
 abstract class _Paths {
@@ -64,4 +66,6 @@ abstract class _Paths {
   static const CHECKOUT_NAVIGATION = '/checkout-navigation';
   static const ARTICLE_DETAIL = '/article-detail';
   static const EVENT_DETAIL = '/event-detail';
+  static const REGISTER_DETAIL = '/register-detail';
+  static const OTP_REGISTER = '/otp-register';
 }
