@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class FormPageController extends GetxController {
-  //TODO: Implement FormPageController
+class NavigationCheckoutTicketFormController extends GetxController {
+  //TODO: Implement NavigationCheckoutTicketFormController
 
   final count = 0.obs;
   @override

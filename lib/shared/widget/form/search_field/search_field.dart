@@ -67,7 +67,7 @@ class _QSearchFieldState extends State<QSearchField> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        bottom: 12,
+        bottom: 6.0, // Smaller bottom margin
       ),
       child: TextFormField(
         enabled: widget.enabled,
@@ -78,16 +78,16 @@ class _QSearchFieldState extends State<QSearchField> {
         obscureText: widget.obscure,
         decoration: InputDecoration(
           labelText: widget.label,
+          labelStyle:
+              const TextStyle(fontSize: 14.0), // Smaller label font size
           prefixIcon: Icon(
             widget.prefixIcon ?? Icons.search,
             color: iconColor,
-          ),
-          suffixIcon: Icon(
-            widget.suffixIcon ?? Icons.filter_alt_outlined,
-            color: iconColor,
+            size: 20.0, // Smaller icon size
           ),
           helperText: widget.helper,
           hintText: widget.hint,
+          hintStyle: const TextStyle(fontSize: 12.0), // Smaller hint font size
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
             borderSide: BorderSide(
@@ -106,14 +106,17 @@ class _QSearchFieldState extends State<QSearchField> {
             borderRadius: BorderRadius.circular(6.0),
             borderSide: BorderSide(
               color: secondaryTextColor,
-              width: 1.0, // Thicker border when focused
+              width: 1.0,
             ),
           ),
           filled: true,
           fillColor: Colors.white,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 10.0, // Reduced vertical padding
+            horizontal: 12.0, // Reduced horizontal padding
+          ),
         ),
+        style: const TextStyle(fontSize: 14.0), // Smaller text font size
         onChanged: (value) {
           widget.onChanged(value);
         },

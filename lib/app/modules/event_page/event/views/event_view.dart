@@ -1,3 +1,4 @@
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kreasi_nusantara/app/modules/event_page/event/controllers/event_controller.dart';
@@ -6,6 +7,7 @@ import 'package:kreasi_nusantara/app/modules/event_page/event_detail/views/event
 import 'package:kreasi_nusantara/app/modules/product/widgets/category.dart';
 import 'package:kreasi_nusantara/models/event_model/event_dummy/event_dummy.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
+import 'package:kreasi_nusantara/shared/widget/form/button/button_2.dart';
 import 'package:kreasi_nusantara/shared/widget/form/search_field/search_field.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -20,6 +22,10 @@ class EventView extends GetView<EventController> {
     final EventPageController pageController = Get.put(EventPageController());
 
     return Scaffold(
+      // appBar: AppBar(
+      //   elevation: 0.0,
+      //   backgroundColor: Colors.transparent,
+      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           controller: ScrollController(),
@@ -29,7 +35,7 @@ class EventView extends GetView<EventController> {
               child: Column(
                 children: [
                   QSearchField(
-                    label: "Search",
+                    label: "Search Product",
                     value: null,
                     prefixIcon: Icons.search,
                     suffixIcon: null,
@@ -105,17 +111,17 @@ class EventView extends GetView<EventController> {
                                         color: Colors
                                             .white, // Warna latar belakang putih
                                         border: Border.all(
-                                          color: const Color(
-                                              0xFFBC0C24), // Warna border merah
+                                          color:
+                                              primaryColor, // Warna border merah
                                         ),
                                         borderRadius: BorderRadius.circular(
-                                            0.0), // Radius border kotak
+                                            6.0), // Radius border kotak
                                       ),
                                       child: Text(
                                         items.category,
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          color: Color(0xFFBC0C24),
+                                        style: TextStyle(
+                                          color: primaryColor,
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -182,46 +188,24 @@ class EventView extends GetView<EventController> {
                                         Text(
                                           items.price,
                                           style: const TextStyle(
-                                            fontSize: 12.0,
+                                            fontSize: 10.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
                                           items.person,
                                           style: TextStyle(
-                                            fontSize: 10.0,
+                                            fontSize: 8.0,
                                             color: secondaryTextColor,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          width: 8.0,
-                                        ),
-                                        SizedBox(
+                                        const Spacer(),
+                                        QButton2(
+                                          label: "Beli Tiket",
                                           height: 32,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.3,
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: primaryColor,
-                                              foregroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                  4.0,
-                                                ),
-                                              ),
-                                            ),
-                                            onPressed: () =>
-                                                Get.to(const EventDetailView()),
-                                            child: const Text(
-                                              "Get Ticket",
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                              ),
-                                            ),
-                                          ),
+                                          width: 92,
+                                          onPressed: () =>
+                                              Get.to(const EventDetailView()),
                                         ),
                                       ],
                                     ),

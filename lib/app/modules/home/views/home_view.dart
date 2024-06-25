@@ -58,12 +58,12 @@ class HomeView extends GetView<HomeController> {
                       color: Color(0xFFBC0C24),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Center(
                     child: Container(
                       width: 398,
                       height: 39,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
@@ -71,7 +71,7 @@ class HomeView extends GetView<HomeController> {
                           width: 0.5,
                         ),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.search),
                           SizedBox(width: 5),
@@ -90,13 +90,13 @@ class HomeView extends GetView<HomeController> {
                   ),
                   SectionTitle(title: 'Upcoming Events'),
                   controller.events.isEmpty
-                      ? Center(
+                      ? const Center(
                           child: Text('No upcoming events at the moment.'),
                         )
                       : SizedBox(
                           height: MediaQuery.of(context).size.height * 0.4,
                           child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: controller.events.length.clamp(0, 4),
                             itemBuilder: (context, index) {
                               final event = controller.events[index];
@@ -118,7 +118,8 @@ class HomeView extends GetView<HomeController> {
                                             width: 120,
                                             height: 120,
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
+                                              borderRadius:
+                                                  const BorderRadius.only(
                                                 topLeft: Radius.circular(12),
                                                 topRight: Radius.circular(12),
                                                 bottomLeft: Radius.circular(12),
@@ -133,7 +134,7 @@ class HomeView extends GetView<HomeController> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: 10),
+                                          const SizedBox(width: 10),
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment:
@@ -142,7 +143,7 @@ class HomeView extends GetView<HomeController> {
                                                 Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                      color: Color(
+                                                      color: const Color(
                                                           0xFFBC0C24), // Ubah warna sesuai preferensi Anda
                                                       width:
                                                           2.0, // Ubah lebar sesuai kebutuhan Anda
@@ -150,34 +151,37 @@ class HomeView extends GetView<HomeController> {
                                                   ),
                                                   child: Text(
                                                     event.category,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       color: Color(0xFFBC0C24),
                                                     ),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ),
-                                                SizedBox(height: 4),
+                                                const SizedBox(height: 4),
                                                 Text(
                                                   event.title,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   textAlign: TextAlign.end,
                                                 ),
-                                                SizedBox(height: 8),
+                                                const SizedBox(height: 8),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        Icon(Icons.location_on,
+                                                        const Icon(
+                                                            Icons.location_on,
                                                             size: 14),
-                                                        SizedBox(width: 4),
+                                                        const SizedBox(
+                                                            width: 4),
                                                         Text(
                                                           event.location,
-                                                          style: TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: 10,
                                                           ),
@@ -186,15 +190,18 @@ class HomeView extends GetView<HomeController> {
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(width: 0.1),
+                                                    const SizedBox(width: 0.1),
                                                     Row(
                                                       children: [
-                                                        Icon(Icons.access_time,
+                                                        const Icon(
+                                                            Icons.access_time,
                                                             size: 10),
-                                                        SizedBox(width: 4),
+                                                        const SizedBox(
+                                                            width: 4),
                                                         Text(
                                                           event.date,
-                                                          style: TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: 10,
                                                           ),
@@ -205,52 +212,55 @@ class HomeView extends GetView<HomeController> {
                                                     ),
                                                   ],
                                                 ),
-                                                SizedBox(height: 8),
+                                                const SizedBox(height: 8),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     Text(
                                                       event.price,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 10,
                                                       ),
                                                       textAlign: TextAlign.end,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                         width:
                                                             10), // Add some space between price and button
                                                     ElevatedButton(
                                                       onPressed: () {},
-                                                      child: Text(
-                                                        'Get Ticket',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12),
-                                                      ),
                                                       style: ElevatedButton
                                                           .styleFrom(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
                                                                 horizontal: 16,
                                                                 vertical: 8),
                                                         minimumSize:
-                                                            Size(80, 0),
+                                                            const Size(80, 0),
                                                         shape:
                                                             RoundedRectangleBorder(
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(8),
-                                                          side: BorderSide(
+                                                          side:
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0xFFBC0C24),
                                                             width: 1,
                                                           ),
                                                         ),
                                                         backgroundColor:
-                                                            Color(0xFFBC0C24),
+                                                            const Color(
+                                                                0xFFBC0C24),
+                                                      ),
+                                                      child: const Text(
+                                                        'Get Ticket',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12),
                                                       ),
                                                     ),
                                                   ],
@@ -267,10 +277,10 @@ class HomeView extends GetView<HomeController> {
                             },
                           ),
                         ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   SectionTitle(title: 'Local Product'),
-                  SizedBox(height: 10),
-                  Container(
+                  const SizedBox(height: 10),
+                  SizedBox(
                     height: 240,
                     child: Expanded(
                       child: ListView.builder(
@@ -283,8 +293,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-
+                  const SizedBox(height: 20),
                 ],
               ),
             );

@@ -65,9 +65,19 @@ class StepNavigationController extends State<StepNavigation> {
                   size: 18.0,
                 ),
               ),
-              const Text(
-                "Checkout",
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    "Checkout",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 38.0,
               ),
             ],
           ),
@@ -135,7 +145,7 @@ class StepNavigationController extends State<StepNavigation> {
                           if (index < widget.navigations.length - 1)
                             Container(
                               height: 2,
-                              width: 60, // Tambahkan garis pemisah
+                              width: 32, // Tambahkan garis pemisah
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 6.0),
                               decoration: BoxDecoration(

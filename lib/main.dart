@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kreasi_nusantara/app/modules/event_kalender/controllers/event_kalender_controller.dart';
+import 'package:kreasi_nusantara/app/modules/event_page/form/controllers/form_controller.dart';
+import 'package:kreasi_nusantara/app/modules/home_page/controllers/home_page_controller.dart';
 import 'package:kreasi_nusantara/app/modules/login_page/login/controllers/login_controller.dart';
 import 'package:kreasi_nusantara/app/modules/login_page/main_navigation/controllers/main_navigation_controller.dart';
 import 'package:kreasi_nusantara/app/modules/login_page/splash_screen/bindings/splash_screen_binding.dart';
@@ -38,6 +41,8 @@ void main() async {
   );
 
   Get.put(ProductController());
+  Get.put(FormController());
+  Get.put(EventKalenderController());
   Get.put(CheckoutProductController());
   Get.put(MainNavigationController());
   Get.put(TambahAlamatController());
@@ -45,6 +50,7 @@ void main() async {
   Get.put(ForgotPasswordController());
   Get.put(ForgotPasswordConfirmationOtpController());
   Get.put(LoginController());
+  Get.put(HomePageController());
   runApp(
     GetMaterialApp(
       title: "Application",

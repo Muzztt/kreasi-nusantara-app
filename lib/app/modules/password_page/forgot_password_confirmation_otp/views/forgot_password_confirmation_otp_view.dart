@@ -64,7 +64,8 @@ class ForgotPasswordConfirmationOtpView
                   label: controller.isLoading.value ? 'Loading...' : 'Lanjut',
                   colorButton: primaryColor,
                   onPressed: () {
-                    controller.verifyOtp();
+                    // controller.verifyOtp();
+                    Get.offAll(const NewPasswordView());
                   },
                 );
               }),

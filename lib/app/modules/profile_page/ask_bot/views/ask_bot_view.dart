@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../controllers/ask_bot_controller.dart';
 
 class AskBotView extends GetView<AskBotController> {
-  const AskBotView({Key? key}) : super(key: key);
+  const AskBotView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,8 @@ class AskBotView extends GetView<AskBotController> {
           ),
           centerTitle: true,
           backgroundColor: Colors.white,
-          elevation: 0, // Remove app bar shadow
-          iconTheme: IconThemeData(color: Colors.black), // Back button color
+          elevation: 0,
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Column(
           children: [
@@ -37,26 +37,56 @@ class AskBotView extends GetView<AskBotController> {
                 children: [
                   Center(
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 12.0),
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 223, 158, 158),
+                        color: const Color.fromARGB(255, 223, 158, 158),
                         borderRadius: BorderRadius.circular(24),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Today',
                         style:
                             TextStyle(color: Color(0xFFBA1A1A), fontSize: 12.0),
                       ),
                     ),
                   ),
-                  SizedBox(height: 16.0), // Adjusted height for better spacing
+                  const SizedBox(height: 16.0),
                   Obx(() {
                     if (controller.hasSubmitted.value) {
-                      // Response State
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(vertical: 8.0),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12.0, horizontal: 16.0),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFBA1A1A),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    controller.userQuery.value,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4.0),
+                                  Text(
+                                    controller.userTimestamp.value,
+                                    style: TextStyle(
+                                      color: Colors.grey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
@@ -64,7 +94,7 @@ class AskBotView extends GetView<AskBotController> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 12.0, horizontal: 16.0),
                               decoration: BoxDecoration(
-                                color: Color(0xFFFDECEC),
+                                color: const Color(0xFFFDECEC),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Column(
@@ -74,57 +104,34 @@ class AskBotView extends GetView<AskBotController> {
                                     children: [
                                       Container(
                                         padding: const EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Color(0xFFFFE5E5),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Image.asset(
-                                          'assets/images/iconbot.png',
-                                          width: 24,
-                                          height: 24,
+                                        child: const Icon(
+                                          Icons.account_circle_outlined,
+                                          color: Color(0xFFBA1A1A),
                                         ),
                                       ),
-                                      SizedBox(width: 8.0),
-                                      Expanded(
-                                        child: Text(
-                                          'Anda bertanya:',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
+                                      const SizedBox(width: 8.0),
                                     ],
                                   ),
-                                  SizedBox(height: 8.0),
-                                  Text(
-                                    controller.userQuery.value,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8.0),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 16.0),
-                              decoration: BoxDecoration(
-                                color: Color(0xFFBA1A1A),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    controller.botResponse.value,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                  const SizedBox(height: 8.0),
+                                  Obx(() => Text(
+                                        controller.botResponse.value,
+                                        style: const TextStyle(
+                                          color: Color(0xFFBA1A1A),
+                                        ),
+                                      )),
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Obx(() => Text(
+                                          controller.botTimestamp.value,
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12.0,
+                                          ),
+                                        )),
                                   ),
                                 ],
                               ),
@@ -133,30 +140,25 @@ class AskBotView extends GetView<AskBotController> {
                         ],
                       );
                     } else {
-                      // Initial State
-                      SizedBox(height: 50);
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            const SizedBox(height: 20),
                             Container(
-                              padding: const EdgeInsets.all(12.0),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(60.0),
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
                               child: Image.asset(
-                                'assets/images/iconbot.png', // Replace this with the correct path to your image
-                                width: 136, // Adjusted width to match the image
-                                height:
-                                    136, // Adjusted height to match the image
+                                'assets/images/iconbot.png',
+                                width: 136,
+                                height: 136,
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    50), // Add spacing between icon and text
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Expanded(
@@ -174,61 +176,59 @@ class AskBotView extends GetView<AskBotController> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                                height:
-                                    150), // Add spacing between text and input
+                            const SizedBox(height: 120),
                           ],
                         ),
                       );
                     }
                   }),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: controller.textController,
-                          decoration: InputDecoration(
-                            hintText:
-                                'Tanya apapun pasti kejawab dengan Bot Kreasi Nusantara',
-                            hintStyle: TextStyle(
-                              fontSize: 14.0,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 10.0,
-                              horizontal: 10.0,
-                            ),
-                          ),
-                          style: TextStyle(
-                            fontSize: 14.0,
-                          ),
-                          maxLines: 2,
-                          minLines: 1,
-                        ),
-                        SizedBox(height: 16.0),
-                        ElevatedButton(
-                          onPressed: controller.askBot,
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 40),
-                            backgroundColor: Color(0xFFBA1A1A),
-                            padding: EdgeInsets.all(0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: const Text(
-                            'Ask Bot',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
+                ],
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: controller.textController,
+                    decoration: InputDecoration(
+                      hintText:
+                          'Tanya Apapun Pasti Kejawab Dengan Bot Kreasi Nusantara',
+                      hintStyle: const TextStyle(
+                        fontSize: 14.0,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 10.0,
+                      ),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                    ),
+                    maxLines: 2,
+                    minLines: 1,
+                  ),
+                  const SizedBox(height: 16.0),
+                  ElevatedButton(
+                    onPressed: controller.askBot,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 40),
+                      backgroundColor: const Color(0xFFBA1A1A),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Ask Bot',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],

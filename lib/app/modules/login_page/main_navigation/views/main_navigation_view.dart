@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kreasi_nusantara/app/modules/article_page/article/views/article_view.dart';
 import 'package:kreasi_nusantara/app/modules/event_page/event/views/event_view.dart';
 import 'package:kreasi_nusantara/app/modules/home/views/home_view.dart';
+import 'package:kreasi_nusantara/app/modules/home_page/views/home_page_view.dart';
 import 'package:kreasi_nusantara/app/modules/product/product_page/views/product_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/profile/views/profile_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
@@ -18,7 +19,7 @@ class MainNavigationView extends GetView<MainNavigationController> {
       body: Obx(() {
         switch (controller.selectedIndex.value) {
           case 0:
-            return const HomeView();
+            return const HomePageView();
           case 1:
             return const ProductView();
           case 2:

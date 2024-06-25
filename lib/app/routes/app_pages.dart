@@ -1,13 +1,5 @@
 import 'package:get/get.dart';
-import 'package:kreasi_nusantara/app/modules/product/product_page/bindings/product_binding.dart';
-import '../modules/profile_page/ask_bot/bindings/ask_bot_binding.dart';
-import '../modules/profile_page/ask_bot/views/ask_bot_view.dart';
-import '../modules/profile_page/edit_profile/bindings/edit_profile_binding.dart';
-import '../modules/profile_page/edit_profile/views/edit_profile_view.dart';
-import '../modules/profile_page/rincian_pembelian_product/bindings/rincian_pembelian_product_binding.dart';
-import '../modules/profile_page/rincian_pembelian_product/views/rincian_pembelian_product_view.dart';
-import '../modules/profile_page/rincian_pembelian_ticket/bindings/rincian_pembelian_ticket_binding.dart';
-import '../modules/profile_page/rincian_pembelian_ticket/views/rincian_pembelian_ticket_view.dart';
+
 import '../modules/article_page/article/bindings/article_binding.dart';
 import '../modules/article_page/article/views/article_view.dart';
 import '../modules/article_page/article_detail/bindings/article_detail_binding.dart';
@@ -22,14 +14,18 @@ import '../modules/event_page/event/bindings/event_binding.dart';
 import '../modules/event_page/event/views/event_view.dart';
 import '../modules/event_page/event_detail/bindings/event_detail_binding.dart';
 import '../modules/event_page/event_detail/views/event_detail_view.dart';
-import '../modules/event_page/form_page/bindings/form_page_binding.dart';
-import '../modules/event_page/form_page/views/form_page_view.dart';
+import '../modules/event_page/form/bindings/form_binding.dart';
+import '../modules/event_page/form/views/form_view.dart';
+import '../modules/event_page/navigation_checkout_ticket_form/bindings/navigation_checkout_ticket_form_binding.dart';
+import '../modules/event_page/navigation_checkout_ticket_form/views/navigation_checkout_ticket_form_view.dart';
 import '../modules/event_page/status/bindings/status_binding.dart';
 import '../modules/event_page/status/views/status_view.dart';
 import '../modules/event_page/ticket/bindings/ticket_binding.dart';
 import '../modules/event_page/ticket/views/ticket_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/home_page/bindings/home_page_binding.dart';
+import '../modules/home_page/views/home_page_view.dart';
 import '../modules/login_page/login/bindings/login_binding.dart';
 import '../modules/login_page/login/views/login_view.dart';
 import '../modules/login_page/main_navigation/bindings/main_navigation_binding.dart';
@@ -44,9 +40,18 @@ import '../modules/password_page/forgot_password_confirmation_otp/bindings/forgo
 import '../modules/password_page/forgot_password_confirmation_otp/views/forgot_password_confirmation_otp_view.dart';
 import '../modules/password_page/new_password/bindings/new_password_binding.dart';
 import '../modules/password_page/new_password/views/new_password_view.dart';
+import '../modules/product/product_page/bindings/product_binding.dart';
 import '../modules/product/product_page/views/product_view.dart';
+import '../modules/profile_page/ask_bot/bindings/ask_bot_binding.dart';
+import '../modules/profile_page/ask_bot/views/ask_bot_view.dart';
+import '../modules/profile_page/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/profile_page/edit_profile/views/edit_profile_view.dart';
 import '../modules/profile_page/profile/bindings/profile_binding.dart';
 import '../modules/profile_page/profile/views/profile_view.dart';
+import '../modules/profile_page/rincian_pembelian_product/bindings/rincian_pembelian_product_binding.dart';
+import '../modules/profile_page/rincian_pembelian_product/views/rincian_pembelian_product_view.dart';
+import '../modules/profile_page/rincian_pembelian_ticket/bindings/rincian_pembelian_ticket_binding.dart';
+import '../modules/profile_page/rincian_pembelian_ticket/views/rincian_pembelian_ticket_view.dart';
 import '../modules/register_page/register/bindings/register_binding.dart';
 import '../modules/register_page/register/views/register_view.dart';
 
@@ -124,11 +129,6 @@ class AppPages {
       binding: StatusBinding(),
     ),
     GetPage(
-      name: _Paths.FORM_PAGE,
-      page: () => FormPageView(),
-      binding: FormPageBinding(),
-    ),
-    GetPage(
       name: _Paths.DESCRIPTION,
       page: () => const DescriptionView(),
       binding: DescriptionBinding(),
@@ -182,6 +182,21 @@ class AppPages {
       name: _Paths.EVENT_DETAIL,
       page: () => const EventDetailView(),
       binding: EventDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_PAGE,
+      page: () => const HomePageView(),
+      binding: HomePageBinding(),
+    ),
+    GetPage(
+      name: _Paths.NAVIGATION_CHECKOUT_TICKET_FORM,
+      page: () => const NavigationCheckoutTicketFormView(),
+      binding: NavigationCheckoutTicketFormBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORM,
+      page: () => const FormView(),
+      binding: FormBinding(),
     ),
   ];
 }

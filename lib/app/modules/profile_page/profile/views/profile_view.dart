@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kreasi_nusantara/app/modules/login_page/onboarding/views/onboarding_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/edit_profile/views/edit_profile_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/faq/views/faq_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/history/views/history_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/privacy/views/privacy_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
+import 'package:kreasi_nusantara/shared/widget/card/card_ticket3.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -33,12 +35,9 @@ class ProfileView extends GetView<ProfileController> {
             child: const Column(
               children: [
                 CircleAvatar(
-                  radius: 55,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.person,
-                    size: 90,
-                    color: Colors.white,
+                  radius: 58.0,
+                  backgroundImage: NetworkImage(
+                    "https://res.cloudinary.com/dotz74j1p/raw/upload/v1716044979/nr7gt66alfhmu9vaxu2u.png",
                   ),
                 ),
                 SizedBox(height: 20),
@@ -144,15 +143,25 @@ class ProfileView extends GetView<ProfileController> {
                 height: 130, // Adjust based on your ticket card height
                 padding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 20.0),
-                child: SingleChildScrollView(
+                child: const SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      _buildTicketCard('assets/images/card-ticket.jpg'),
-                      const SizedBox(width: 10),
-                      _buildTicketCard('assets/images/card-ticket.jpg'),
-                      const SizedBox(width: 10),
-                      // Add more ticket cards as needed
+                      CardTicket3(
+                        title: "Pagelaran Wayang Kulit",
+                        subtittle: "VVIP RIGHT Ticket 1x",
+                        dateTime: "12/01/2024 . 04.00 PM",
+                        image: "assets/images/card kecil.png",
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      CardTicket3(
+                        title: "Pagelaran Wayang Kulit",
+                        subtittle: "VVIP RIGHT Ticket 1x",
+                        dateTime: "12/01/2024 . 04.00 PM",
+                        image: "assets/images/card kecil.png",
+                      ),
                     ],
                   ),
                 ),
@@ -187,21 +196,20 @@ class ProfileView extends GetView<ProfileController> {
       margin: const EdgeInsets.symmetric(vertical: 5.0),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-        leading: const Icon(
+        leading: Icon(
           Icons.logout,
-          color: Color(0xFF980019),
+          color: primaryColor,
           size: 18,
         ),
-        title: const Text(
+        title: Text(
           'Keluar Akun',
           style: TextStyle(
-            color: Color(0xFF980019),
+            color: primaryColor,
             fontSize: 14,
           ),
         ),
         onTap: () {
-          // Implement logout logic here
-          // Misalnya, kembali ke halaman login atau lakukan clear session
+          Get.offAll(const OnboardingView());
         },
       ),
     );

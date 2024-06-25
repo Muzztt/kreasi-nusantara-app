@@ -111,7 +111,7 @@ class _QTextFieldState extends State<QTextField> {
         Text(
           widget.label,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 12,
           ),
         ),
         const SizedBox(height: 8),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kreasi_nusantara/app/modules/event_page/form_page/views/form_page_view.dart';
+import 'package:kreasi_nusantara/app/modules/event_page/navigation_checkout_ticket_form/views/navigation_checkout_ticket_form_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import 'package:kreasi_nusantara/shared/widget/card_tiket/card_ticket2.dart';
 import 'package:kreasi_nusantara/shared/widget/card_tiket/card_tiket.dart';
+import 'package:kreasi_nusantara/shared/widget/form/button/button_2.dart';
 
 import '../controllers/ticket_controller.dart';
 
@@ -47,23 +48,24 @@ class TicketView extends GetView<TicketController> {
               'Total',
               style: TextStyle(fontSize: 16.0),
             ),
+            const SizedBox(
+              width: 8.0,
+            ),
             Text(
               'IDR 170.000',
               style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                   color: primaryColor),
             ),
-            ElevatedButton(
-              onPressed: () => Get.offAll(FormPageView()),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-                backgroundColor: primaryColor,
-                foregroundColor: Colors.white,
-              ),
-              child: const Text("Bayar Sekarang"),
+            const Spacer(),
+            QButton2(
+              label: "Bayar Sekarang",
+              fontSize: 12,
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: 38,
+              onPressed: () =>
+                  Get.to(() => const NavigationCheckoutTicketFormView()),
             ),
           ],
         ),

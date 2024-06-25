@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:kreasi_nusantara/app/modules/article_page/article_detail/views/article_detail_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import 'package:kreasi_nusantara/shared/widget/form/button/action_button.dart';
+import 'package:kreasi_nusantara/shared/widget/form/button/button.dart';
+import 'package:kreasi_nusantara/shared/widget/form/button/button_2.dart';
 import '../controllers/article_controller.dart';
 
 class ArticleView extends GetView<ArticleController> {
@@ -98,8 +100,10 @@ class ArticleView extends GetView<ArticleController> {
                           ),
                         ),
                         const SizedBox(height: 8.0),
-                        QActionButton(
+                        QButton(
                           label: "Read More",
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 38,
                           onPressed: () {},
                         ),
                       ],
@@ -149,16 +153,20 @@ class ArticleView extends GetView<ArticleController> {
                                     ),
                                   ),
                                   const SizedBox(height: 8),
-                                  QActionButton(
-                                      label: "Read More",
-                                      onPressed: () {
-                                        articleController
-                                            .fetchArticleById(article.id);
-                                        Get.to(
-                                          const ArticleDetailView(),
-                                          arguments: article,
-                                        );
-                                      }),
+                                  QButton(
+                                    label: "Read More",
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height: 38,
+                                    onPressed: () {
+                                      articleController
+                                          .fetchArticleById(article.id);
+                                      Get.to(
+                                        const ArticleDetailView(),
+                                        arguments: article,
+                                      );
+                                    },
+                                  ),
                                 ],
                               ),
                             ),

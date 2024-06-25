@@ -13,35 +13,11 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   void login() async {
-    isLoading.value = true;
-    errorMessage.value = '';
-
-    try {
-      print(emailController.text);
-      print(passwordController.text);
-
-      final response = await authService.login(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      print(response);
-
-      isLoading.value = false;
-
-      if (response['status'] == "success") {
-        print("Masuk di status success");
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', response['data']["token"]);
-        Get.offAll(
-            const MainNavigationView()); // Pastikan rute sesuai dengan yang Anda inginkan
-      } else {
-        print("Masuk dibagian gagal");
-        errorMessage.value = response['message'];
-      }
-    } catch (e) {
-      isLoading.value = false;
-      errorMessage.value = e.toString();
+    if (!formKey.currentState!.validate()) {
+      return;
     }
   }
 

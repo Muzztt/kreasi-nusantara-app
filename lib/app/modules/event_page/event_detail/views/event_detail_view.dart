@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:kreasi_nusantara/app/modules/event_page/description/views/description_view.dart';
 import 'package:kreasi_nusantara/app/modules/event_page/ticket/views/ticket_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../controllers/event_detail_controller.dart';
 
@@ -29,6 +28,19 @@ class EventDetailView extends GetView<EventDetailController> {
             ),
           ),
         ),
+        actions: const [
+          CircleAvatar(
+            radius: 18,
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.share_rounded,
+              size: 24.0,
+            ),
+          ),
+          SizedBox(
+            width: 12.0,
+          ),
+        ],
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),

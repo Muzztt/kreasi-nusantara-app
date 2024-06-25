@@ -68,7 +68,8 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     label: controller.isLoading.value ? 'Loading...' : 'Masuk',
                     colorButton: primaryColor,
                     onPressed: () {
-                      controller.sendForgotPasswordRequest();
+                      // controller.sendForgotPasswordRequest();
+                      Get.offAll(ForgotPasswordConfirmationOtpView());
                     });
               }),
             ],

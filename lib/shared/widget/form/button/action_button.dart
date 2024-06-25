@@ -19,7 +19,7 @@ class QActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 38,
+      height: 42,
       child: ElevatedButton(
         onPressed: () => onPressed(),
         style: ButtonStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/ask_bot/views/ask_bot_view.dart';
+import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import '../controllers/faq_controller.dart';
 
 class FaqView extends GetView<FaqController> {
@@ -117,10 +118,10 @@ class FaqView extends GetView<FaqController> {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(0xFFBA1A1A),
+            color: primaryColor,
           ),
         ),
         Obx(() => ExpansionPanelList(

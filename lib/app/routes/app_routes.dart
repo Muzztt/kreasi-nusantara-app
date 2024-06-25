@@ -33,6 +33,12 @@ abstract class Routes {
   static const EVENT_DETAIL = _Paths.EVENT_DETAIL;
   static const REGISTER_DETAIL = _Paths.REGISTER_DETAIL;
   static const OTP_REGISTER = _Paths.OTP_REGISTER;
+  static const HOME_PAGE = _Paths.HOME_PAGE;
+  static const NAVIGATION_CHECKOUT_TICKET_FORM =
+      _Paths.NAVIGATION_CHECKOUT_TICKET_FORM;
+  static const FORM = _Paths.FORM;
+  static const DATE_TIME_PAGE = _Paths.DATE_TIME_PAGE;
+  static const EVENT_KALENDER = _Paths.EVENT_KALENDER;
 }
 
 abstract class _Paths {
@@ -68,4 +74,10 @@ abstract class _Paths {
   static const EVENT_DETAIL = '/event-detail';
   static const REGISTER_DETAIL = '/register-detail';
   static const OTP_REGISTER = '/otp-register';
+  static const HOME_PAGE = '/home-page';
+  static const NAVIGATION_CHECKOUT_TICKET_FORM =
+      '/navigation-checkout-ticket-form';
+  static const FORM = '/form';
+  static const DATE_TIME_PAGE = '/date-time-page';
+  static const EVENT_KALENDER = '/event-kalender';
 }
