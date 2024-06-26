@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kreasi_nusantara/app/modules/product/detail_product/models/detail_model.dart';
 import 'package:kreasi_nusantara/app/modules/product/pilih%20alamat/models/adress_model.dart';
 import 'package:http/http.dart' as http;
@@ -48,29 +47,51 @@ class ProductController extends GetxController {
     }
   }
 
-  final List<Paymentwidget> payment = [
-    const Paymentwidget(
-      paymentImage:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/LinkAja.svg/2048px-LinkAja.svg.png",
-      paymentName: "BCA",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://www.upulsa.com/images/produk/ewallet/ovo-1000-214-fqjj.jpg",
-      paymentName: "OVO",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BCA-512.png",
-      paymentName: "BCA Virtual Account",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BNI-512.png",
-      paymentName: "BNI Virtual Account",
-    ),
-  ];
+  Rx<Paymentwidget?> selectedPayment = Rx<Paymentwidget?>(null);
 
+  void selectPayment(Paymentwidget payment) {
+    selectedPayment.value = payment;
+    update();
+  }
+
+  List<Paymentwidget> payment = [];
+
+  ProductController() {
+    payment = [
+      Paymentwidget(
+        paymentImage:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/LinkAja.svg/2048px-LinkAja.svg.png",
+        paymentName: "LinkAja",
+        onTap: () {
+          selectPayment(payment[0]);
+        },
+      ),
+      Paymentwidget(
+        paymentImage:
+            "https://www.upulsa.com/images/produk/ewallet/ovo-1000-214-fqjj.jpg",
+        paymentName: "OVO",
+        onTap: () {
+          selectPayment(payment[1]);
+        },
+      ),
+      Paymentwidget(
+        paymentImage:
+            "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BCA-512.png",
+        paymentName: "BCA Virtual Account",
+        onTap: () {
+          selectPayment(payment[2]);
+        },
+      ),
+      Paymentwidget(
+        paymentImage:
+            "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BNI-512.png",
+        paymentName: "BNI Virtual Account",
+        onTap: () {
+          selectPayment(payment[3]);
+        },
+      ),
+    ];
+  }
   final List<ShippingOption> shipping = [
     const ShippingOption(
       kurir: "JNE",
@@ -120,8 +141,14 @@ class ProductController extends GetxController {
   var sizes = <SizeData>[].obs;
   var selectedSize = ''.obs;
   var selectedStock = 0.obs;
+  var selectedVariantId = ''.obs;
+  var isLoading = false.obs;
+
+  // Add the variants property
+  List<Variant> variants = [];
 
   void fetchSizes(List<Variant> variants) {
+    this.variants = variants; // Store variants for later use
     sizes.clear();
     for (var variant in variants) {
       sizes.add(SizeData(label: variant.size, isSelected: false));
@@ -129,16 +156,19 @@ class ProductController extends GetxController {
     sizes.refresh();
   }
 
-  void handlsizeTap(int index, List<Variant> variants) {
+  void handlsizeTap(int index) {
     for (int i = 0; i < sizes.length; i++) {
       if (i == index) {
         sizes[i].toggleSelection();
         if (sizes[i].isSelected) {
           selectedSize.value = sizes[i].label;
           selectedStock.value = variants[i].stock;
+          selectedVariantId.value = variants[i].id;
+          print('Selected Variant ID: ${variants[i].id}');
         } else {
           selectedSize.value = '';
           selectedStock.value = 0;
+          selectedVariantId.value = '';
         }
       } else {
         sizes[i].isSelected = false;
@@ -196,7 +226,6 @@ class ProductController extends GetxController {
     calculateTotalPrice();
   }
 
-  var isLoading = false.obs;
   void addToCart(ProductCard product) {
     if (cartItems.contains(product)) {
       // Jika produk sudah ada di keranjang, tambahkan ke jumlahnya

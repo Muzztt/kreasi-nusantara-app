@@ -8,7 +8,6 @@ import 'package:kreasi_nusantara/app/modules/product/pilih%20alamat/models/adres
 import 'package:kreasi_nusantara/app/modules/product/widgets/card_product.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/category.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/opsi_pengiriman_card.dart';
-import 'package:kreasi_nusantara/app/modules/product/widgets/payment.dart';
 
 class CheckoutProductController extends GetxController {
   String authToken =
@@ -56,29 +55,6 @@ class CheckoutProductController extends GetxController {
   List<ProductCard> getCheckedItems() {
     return cartItems.where((item) => item.isChecked.value).toList();
   }
-
-  final List<Paymentwidget> payment = [
-    const Paymentwidget(
-      paymentImage:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/LinkAja.svg/2048px-LinkAja.svg.png",
-      paymentName: "BCA",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://www.upulsa.com/images/produk/ewallet/ovo-1000-214-fqjj.jpg",
-      paymentName: "OVO",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BCA-512.png",
-      paymentName: "BCA Virtual Account",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BNI-512.png",
-      paymentName: "BNI Virtual Account",
-    ),
-  ];
 
   final List<ShippingOption> shipping = [
     const ShippingOption(

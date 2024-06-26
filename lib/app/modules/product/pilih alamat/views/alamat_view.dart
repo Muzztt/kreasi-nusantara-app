@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kreasi_nusantara/app/modules/product/pilih%20alamat/controllers/alamat_controller.dart';
-import 'package:kreasi_nusantara/app/modules/product/pilih%20alamat/models/adress_model.dart';
 import 'package:kreasi_nusantara/app/modules/product/tambah%20alamat/views/tambah_alamat_view.dart';
 import 'package:kreasi_nusantara/app/modules/product/update%20alamat/views/update_alamat_view.dart';
 
 class ChangeAddress extends GetView<AlamatController> {
-  const ChangeAddress({Key? key}) : super(key: key);
+  const ChangeAddress({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +56,7 @@ class ChangeAddress extends GetView<AlamatController> {
                                           ),
                                         ),
                                         Text(
-                                          '${address.phone}',
+                                          address.phone,
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14,
@@ -86,7 +85,9 @@ class ChangeAddress extends GetView<AlamatController> {
                                 },
                                 secondary: GestureDetector(
                                   onTap: () {
-                                    Get.to(() => UpdateAddress());
+                                    Get.to(() => UpdateAddress())!.then((_) {
+                                      controller.fetchAddresses();
+                                    });
                                   },
                                   child: Text(
                                     "Ubah",
@@ -101,7 +102,9 @@ class ChangeAddress extends GetView<AlamatController> {
                       const SizedBox(height: 19),
                       GestureDetector(
                         onTap: () {
-                          Get.to(() => const AddAddress());
+                          Get.to(() => const AddAddress())!.then((_) {
+                            controller.fetchAddresses();
+                          });
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +141,8 @@ class ChangeAddress extends GetView<AlamatController> {
   Widget _buildConfirmationButton() {
     return Container(
       height: 88,
-      width: double.infinity,
+      width: 430,
+      padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 20),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -150,39 +154,30 @@ class ChangeAddress extends GetView<AlamatController> {
         ],
         color: Colors.white,
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: ElevatedButton(
-          onPressed: () {
-            // Menggunakan selectedAddress.value untuk aksi yang diperlukan
-            var selectedId = controller.selectedAddress.value?.id;
+      child: ElevatedButton(
+        onPressed: () {
+          // Menggunakan selectedAddress.value untuk aksi yang diperlukan
+          var selectedId = controller.selectedAddress.value?.id;
 
-            // Perform actions with the selected ID
-            print('ID alamat yang dipilih: $selectedId');
-
-            // Example: You can save the selected ID to storage or perform an API call
-            // Example of API call:
-            // saveSelectedAddress(selectedId);
-
-            // Close the current screen
-            Get.back();
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xffC00C25),
-            minimumSize: const Size(40, 56),
-            padding: const EdgeInsets.all(18),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+          // Perform actions with the selected ID
+          print('ID alamat yang dipilih: $selectedId');
+          Get.back();
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xff980019),
+          minimumSize: const Size(331, 40),
+          padding: const EdgeInsets.all(18),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
           ),
-          child: Text(
-            'Konfirmasi',
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              height: 0.8,
-              color: Colors.white,
-            ),
+        ),
+        child: Text(
+          'Konfirmasi',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            height: 0.8,
+            color: Colors.white,
           ),
         ),
       ),

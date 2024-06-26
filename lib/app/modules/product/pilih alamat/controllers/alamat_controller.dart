@@ -43,10 +43,10 @@ class AlamatController extends GetxController {
           addresses.assignAll(addressesList);
 
           // Print addresses to console
-          addressesList.forEach((address) {
+          for (var address in addressesList) {
             print(
                 'Address: ${address.name}, ${address.street}, ${address.city}');
-          });
+          }
 
           print('Addresses assigned: ${addresses.length}');
         } else {

@@ -90,16 +90,19 @@ class LatestReview {
 }
 
 class Variant {
+  final String id;
   final String size;
   final int stock;
 
   Variant({
+    required this.id,
     required this.size,
     required this.stock,
   });
 
   factory Variant.fromJson(Map<String, dynamic> json) {
     return Variant(
+      id: json['id'],
       size: json['size'],
       stock: json['stock'],
     );

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kreasi_nusantara/app/modules/product/detail_product/models/detail_model.dart';
 
 import 'package:kreasi_nusantara/app/modules/product/widgets/card_product.dart';
@@ -72,7 +71,7 @@ class ProductViewController extends GetxController {
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body) as Map<String, dynamic>;
 
-        if (jsonData is Map<String, dynamic> && jsonData['data'] is List) {
+        if (jsonData['data'] is List) {
           var productsList = (jsonData['data'] as List)
               .map((item) => ProductCard.fromJson(item))
               .toList();
@@ -242,90 +241,4 @@ class ProductViewController extends GetxController {
     SizeData(label: "XXL", isSelected: false),
     SizeData(label: "XXXL", isSelected: false),
   ];
-
-  void increment(ProductCard product) {
-    product.quantity++;
-    print('Quantity incremented: ${product.quantity}');
-    calculateTotalPrice();
-    update();
-  }
-
-  void decrement(ProductCard product) {
-    if (product.quantity > 0) {
-      product.quantity--;
-      print('Quantity decremented: ${product.quantity}');
-      calculateTotalPrice();
-      update();
-    }
-  }
-
-  var cartItems = <ProductCard>[].obs;
-  var totalPrice = 0.obs;
-
-  List<ProductCard> getCheckedItems() {
-    return cartItems.where((item) => item.isChecked.value).toList();
-  }
-
-  void toggleCheckbox(ProductCard product, bool value) {
-    product.isChecked.value = value;
-    calculateTotalPrice();
-    update();
-  }
-
-  void calculateTotalPrice() {
-    totalPrice.value = cartItems.where((item) => item.isChecked.value).fold(
-        0,
-        (sum, item) =>
-            sum + int.parse(item.discountedPrice) * item.quantity.toInt());
-    update();
-  }
-
-  bool areAllChecked() {
-    return cartItems.every((product) => product.isChecked.value);
-  }
-
-  void toggleAllCheckboxes(bool value) {
-    for (var product in cartItems) {
-      product.isChecked.value = value;
-    }
-    calculateTotalPrice();
-  }
-
-  void addToCart(ProductCard product) {
-    if (cartItems.contains(product)) {
-      // Jika produk sudah ada di keranjang, tambahkan ke jumlahnya
-      final existingProduct = cartItems.firstWhere((item) => item == product);
-      existingProduct.quantity++;
-    } else {
-      // Jika produk belum ada di keranjang, tambahkan ke keranjang
-      product.quantity =
-          RxInt(1); // Set jumlah menjadi 1 karena baru ditambahkan
-      cartItems.add(product);
-    }
-    Get.snackbar(
-      'Cart',
-      'Product added to cart!',
-      snackPosition: SnackPosition.BOTTOM,
-    );
-  }
-
-  void buyNow(ProductCard product) {
-    if (cartItems.contains(product)) {
-      // Jika produk sudah ada di keranjang, tambahkan ke jumlahnya
-      final existingProduct = cartItems.firstWhere((item) => item == product);
-      existingProduct.quantity++;
-    } else {
-      // Jika produk belum ada di keranjang, tambahkan ke keranjang
-      product.quantity =
-          RxInt(1); // Set jumlah menjadi 1 karena baru ditambahkan
-      cartItems.add(product);
-    }
-    product.isChecked.value = true;
-    calculateTotalPrice();
-    update();
-  }
-
-  void removeFromCart(ProductCard product) {
-    cartItems.remove(product);
-  }
 }

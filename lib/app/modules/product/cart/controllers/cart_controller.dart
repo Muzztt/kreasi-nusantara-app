@@ -1,287 +1,271 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:kreasi_nusantara/app/modules/product/widgets/card_product.dart';
-import 'package:kreasi_nusantara/app/modules/product/widgets/category.dart';
-import 'package:kreasi_nusantara/app/modules/product/widgets/opsi_pengiriman_card.dart';
-import 'package:kreasi_nusantara/app/modules/product/widgets/payment.dart';
-import 'package:kreasi_nusantara/app/modules/product/widgets/size.dart';
+import 'package:http/http.dart' as http;
+import 'package:kreasi_nusantara/app/modules/product/cart/models/cart_model.dart';
 
 class CartController extends GetxController {
-  // final List<ProductCard> products = [
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   // Add more products as needed
-  // ];
+  String authToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0YzYwZWNkLTgwNWYtNDA3Yi1iYTQ0LWViYWJhNjU4MTk2YSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwODc3ODcwfQ.RQimRRWa3Tri-DvVCQOe1NXRJ8UkiQxoyh7ddFT6ZPU';
 
-  final List<Paymentwidget> payment = [
-    const Paymentwidget(
-      paymentImage:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/LinkAja.svg/2048px-LinkAja.svg.png",
-      paymentName: "BCA",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://www.upulsa.com/images/produk/ewallet/ovo-1000-214-fqjj.jpg",
-      paymentName: "OVO",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BCA-512.png",
-      paymentName: "BCA Virtual Account",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BNI-512.png",
-      paymentName: "BNI Virtual Account",
-    ),
-  ];
-
-  final List<ShippingOption> shipping = [
-    const ShippingOption(
-      kurir: "JNE",
-      price: "17000",
-      estimate: "1-3 Jun",
-    ),
-    const ShippingOption(
-      kurir: "TIKI",
-      price: "14000",
-      estimate: "1-3 Jun",
-    ),
-    const ShippingOption(
-      kurir: "POS Indonesia",
-      price: "13000",
-      estimate: "2-3 jun",
-    ),
-    // Add more shipping options as needed
-  ];
-  var selectedShipping = Rx<ShippingOption?>(null);
-
-  void selectShipping(ShippingOption shipping) {
-    selectedShipping.value = shipping;
-  }
-
-  var selectedCourier = ''.obs;
-  var selectedPrice = 0.obs;
-
-  void setSelectedCourier(String courier, int price) {
-    selectedCourier.value = courier;
-    selectedPrice.value = price;
-  }
-
-  final List<ButtonData> buttons = [
-    ButtonData(label: "Kemeja", isSelected: true),
-    ButtonData(label: "Batik", isSelected: false),
-    ButtonData(label: "Kerajinan", isSelected: false),
-    ButtonData(label: "Lukisan", isSelected: false),
-  ];
-
-  void handleButtonTap(int index) {
-    for (int i = 0; i < buttons.length; i++) {
-      buttons[i].isSelected = i == index;
-    }
-    update(); // This will update the UI when a button is tapped
-  }
-
-  final List<SizeData> size = [
-    SizeData(label: "S", isSelected: true),
-    SizeData(label: "M", isSelected: false),
-    SizeData(label: "L", isSelected: false),
-    SizeData(label: "XL", isSelected: false),
-    SizeData(label: "XXL", isSelected: false),
-    SizeData(label: "XXXL", isSelected: false),
-  ];
-
-  void handlsizeTap(int index) {
-    for (int i = 0; i < size.length; i++) {
-      size[i].isSelected = i == index;
-    }
-    update(); // This will update the UI when a button is tapped
-  }
-
-  var selectedLocation = Rx<LatLng?>(null);
+  var cartItems = <CartItem>[].obs;
+  var totalPrice = 0.obs;
 
   @override
   void onInit() {
+    fetchCartItems();
     super.onInit();
+  }
+
+  void fetchCartItems() async {
+    try {
+      var url = Uri.parse('https://kreasinusantara.shop/api/v1/carts');
+      var response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = json.decode(response.body) as Map<String, dynamic>;
+        var productsList = (jsonData['data']['products'] as List)
+            .map((item) => CartItem.fromJson(item))
+            .toList();
+        cartItems.assignAll(productsList);
+        totalPrice.value = jsonData['data']['total'];
+        update(); // Memanggil update untuk memperbarui tampilan
+      } else {
+        print('Failed to load cart items: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error loading cart items: $e');
+    }
   }
 
   @override
   void onReady() {
+    reloadCartItems();
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void reloadCartItems() {
+    fetchCartItems();
   }
 
-  void increment(ProductCard product) {
-    product.quantity++;
-    print('Quantity incremented: ${product.quantity}');
-    calculateTotalPrice();
-    update();
+  void toggleCheckbox(CartItem cartItem) {
+    cartItem.isChecked.value = !cartItem.isChecked.value;
+    update(); // Update widget jika diperlukan
   }
 
-  void decrement(ProductCard product) {
-    if (product.quantity > 0) {
-      product.quantity--;
-      print('Quantity decremented: ${product.quantity}');
-      calculateTotalPrice();
-      update();
+  void toggleAllCheckboxes(bool isChecked) {
+    for (var cartItem in cartItems) {
+      cartItem.isChecked.value = isChecked;
     }
-  }
-
-  var cartItems = <ProductCard>[].obs;
-  var totalPrice = 0.obs;
-
-  List<ProductCard> getCheckedItems() {
-    return cartItems.where((item) => item.isChecked.value).toList();
-  }
-
-  void toggleCheckbox(ProductCard product, bool value) {
-    product.isChecked.value = value;
-    calculateTotalPrice();
-    update();
-  }
-
-  void calculateTotalPrice() {
-    totalPrice.value = cartItems.where((item) => item.isChecked.value).fold(
-        0,
-        (sum, item) =>
-            sum + int.parse(item.discountedPrice) * item.quantity.toInt());
-    update();
+    update(); // Update widget jika diperlukan
   }
 
   bool areAllChecked() {
-    return cartItems.every((product) => product.isChecked.value);
+    if (cartItems.isEmpty) return false;
+    return cartItems.every((cartItem) => cartItem.isChecked.value);
   }
 
-  void toggleAllCheckboxes(bool value) {
-    for (var product in cartItems) {
-      product.isChecked.value = value;
+  void increment(CartItem cartItem) {
+    cartItem.quantity.value++;
+    update(); // Update widget jika diperlukan
+  }
+
+  void decrement(CartItem cartItem) {
+    if (cartItem.quantity.value > 0) {
+      cartItem.quantity.value--;
+      update(); // Update widget jika diperlukan
     }
-    calculateTotalPrice();
   }
 
-  var isLoading = false.obs;
-  void addToCart(ProductCard product) {
-    if (cartItems.contains(product)) {
-      // Jika produk sudah ada di keranjang, tambahkan ke jumlahnya
-      final existingProduct = cartItems.firstWhere((item) => item == product);
-      existingProduct.quantity++;
-    } else {
-      // Jika produk belum ada di keranjang, tambahkan ke keranjang
-      product.quantity =
-          RxInt(1); // Set jumlah menjadi 1 karena baru ditambahkan
-      cartItems.add(product);
+  Future<void> addToCart(String productVariantId, int quantity) async {
+    try {
+      var url = Uri.parse('https://kreasinusantara.shop/api/v1/carts/items');
+      var body = json.encode({
+        'product_variant_id': productVariantId,
+        'quantity': quantity,
+      });
+
+      var response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        fetchCartItems(); // Ambil ulang item keranjang setelah berhasil menambahkan
+        Get.snackbar(
+          'Success',
+          'Produk berhasil ditambahkan ke keranjang',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      } else {
+        Get.snackbar(
+          'Error',
+          'Gagal menambahkan produk ke keranjang',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        print('Failed to add product to cart: ${response.statusCode}');
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Terjadi kesalahan saat menambahkan produk ke keranjang',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      print('Error adding product to cart: $e');
     }
-    Get.snackbar(
-      'Cart',
-      'Product added to cart!',
-      snackPosition: SnackPosition.BOTTOM,
-    );
   }
 
-  void buyNow(ProductCard product) {
-    if (cartItems.contains(product)) {
-      // Jika produk sudah ada di keranjang, tambahkan ke jumlahnya
-      final existingProduct = cartItems.firstWhere((item) => item == product);
-      existingProduct.quantity++;
-    } else {
-      // Jika produk belum ada di keranjang, tambahkan ke keranjang
-      product.quantity =
-          RxInt(1); // Set jumlah menjadi 1 karena baru ditambahkan
-      cartItems.add(product);
+  Future<void> updateCartItemQuantity(String cartItemId, int quantity) async {
+    try {
+      var url =
+          Uri.parse('https://kreasinusantara.shop/api/v1/carts/$cartItemId');
+      var body = json.encode({
+        'quantity': quantity,
+      });
+
+      var response = await http.put(
+        url,
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        fetchCartItems(); // Ambil ulang item keranjang setelah berhasil memperbarui
+        print("cart item id $cartItemId  quantity $quantity");
+      } else {
+        Get.snackbar(
+          'Error',
+          'Gagal memperbarui kuantitas item',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        print('Failed to update item quantity: ${response.statusCode}');
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Terjadi kesalahan saat memperbarui kuantitas item',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      print('Error updating item quantity: $e');
     }
-    product.isChecked.value = true;
-    calculateTotalPrice();
-    update();
   }
 
-  void removeFromCart(ProductCard product) {
-    cartItems.remove(product);
+  Future<void> removeCartItem(String cartItemId) async {
+    try {
+      var url =
+          Uri.parse('https://kreasinusantara.shop/api/v1/carts/$cartItemId');
+
+      var response = await http.delete(
+        url,
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        fetchCartItems(); // Ambil ulang item keranjang setelah berhasil dihapus
+        Get.snackbar(
+          'Success',
+          'Produk berhasil dihapus dari keranjang',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      } else {
+        Get.snackbar(
+          'Error',
+          'Gagal menghapus produk dari keranjang',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        print('Failed to remove product from cart: ${response.statusCode}');
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Terjadi kesalahan saat menghapus produk dari keranjang',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      print('Error removing product from cart: $e');
+    }
+  }
+
+  String? getSelectedCartId() {
+    // Cari `cartId` dari `CartItem` yang dipilih
+    var selectedCartItem =
+        cartItems.firstWhereOrNull((cartItem) => cartItem.isChecked.value);
+    return selectedCartItem?.cartId;
+  }
+
+  Future<String?> makeStaticTransaction(String id) async {
+    try {
+      var url =
+          Uri.parse('https://kreasinusantara.shop/api/v1/product-transactions');
+      var body = json.encode({
+        'cart_id': id,
+      });
+
+      var response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        var responseData = json.decode(response.body) as Map<String, dynamic>;
+        var snapUrl = responseData['data']['transaction']['snap_url'];
+        return snapUrl; // Return the snap_url directly
+      } else {
+        // Failed to make transaction
+        print('Failed to make transaction: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      // Error during process
+      print('Error making transaction: $e');
+      return null;
+    }
   }
 }

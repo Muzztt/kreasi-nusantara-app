@@ -22,12 +22,10 @@ class ShippingOption extends StatelessWidget {
       height: 78,
       width: 430,
       decoration: BoxDecoration(
-        color: isSelected
-            ? const Color(0xffA6DCD5).withOpacity(0.3)
-            : Colors.white,
+        color: isSelected ? const Color(0xffffffff) : Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,9 +34,11 @@ class ShippingOption extends StatelessWidget {
                 Text(
                   kurir,
                   style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                     fontSize: 14,
-                    color: const Color(0xFF980019),
+                    color: isSelected
+                        ? const Color(0xFF980019)
+                        : const Color(0xFF5D5F5F),
                   ),
                 ),
                 const SizedBox(
@@ -49,7 +49,9 @@ class ShippingOption extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w400,
                     fontSize: 14,
-                    color: const Color(0xFF980019),
+                    color: isSelected
+                        ? const Color(0xFF980019)
+                        : const Color(0xFF5D5F5F),
                   ),
                 ),
               ],
@@ -64,7 +66,7 @@ class ShippingOption extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
-                  color: const Color(0xFF191919),
+                  color: const Color(0xFF5D5F5F),
                 ),
               ),
             ),

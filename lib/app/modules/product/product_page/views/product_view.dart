@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kreasi_nusantara/app/modules/product/detail_product/controllers/detail_product_controller.dart';
-import 'package:kreasi_nusantara/app/modules/product/detail_product/models/detail_model.dart';
 import 'package:kreasi_nusantara/app/modules/product/detail_product/views/detail_product_view.dart';
 import 'package:kreasi_nusantara/app/modules/product/product_page/controllers/product_view_controller.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/card_product.dart';
@@ -10,13 +8,11 @@ import 'package:kreasi_nusantara/app/modules/product/widgets/category.dart';
 import 'package:kreasi_nusantara/shared/widget/form/search_field/search_field.dart';
 
 class ProductView extends GetView<ProductViewController> {
-  const ProductView({Key? key}) : super(key: key);
+  const ProductView({super.key});
 
   @override
   Widget build(BuildContext context) {
     final ProductViewController controller = Get.put(ProductViewController());
-    final DetailProductController detailController =
-        Get.put(DetailProductController());
 
     return Scaffold(
       body: SafeArea(
@@ -126,16 +122,6 @@ class ProductView extends GetView<ProductViewController> {
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Implement your logic to handle fetching products by category
-          // For example, fetch products for 'Kemeja' (category index 1)
-          controller.fetchProducts();
-        },
-        label: const Text('Fetch data'),
-        icon: const Icon(Icons.category),
-        backgroundColor: Colors.blue,
       ),
     );
   }

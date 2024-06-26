@@ -17,6 +17,7 @@ class FormView extends GetView<FormController> {
       body: SingleChildScrollView(
         controller: ScrollController(),
         child: Container(
+          height: MediaQuery.of(context).size.height * 0.87,
           padding: const EdgeInsets.all(12.0),
           child: Form(
             key: controller.formKey,
@@ -60,6 +61,7 @@ class FormView extends GetView<FormController> {
                 ),
                 const Spacer(),
                 Container(
+                  height: MediaQuery.of(context).size.height * 0.08,
                   padding: const EdgeInsets.all(12.0),
                   child: QActionButton(
                     label: "Lanjut",

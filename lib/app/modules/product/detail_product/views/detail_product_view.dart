@@ -7,9 +7,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kreasi_nusantara/app/modules/product/Penilaian_produk/bindings/review_binding.dart';
 import 'package:kreasi_nusantara/app/modules/product/Penilaian_produk/views/review_view.dart';
+import 'package:kreasi_nusantara/app/modules/product/cart/controllers/cart_controller.dart';
 import 'package:kreasi_nusantara/app/modules/product/cart/views/cart_view.dart';
-import 'package:kreasi_nusantara/app/modules/product/checkout/controllers/checkout_controller.dart';
 import 'package:kreasi_nusantara/app/modules/product/controllers/product_controller.dart';
+import 'package:kreasi_nusantara/app/modules/product/detail_product/controllers/detail_product_controller.dart';
 import 'package:kreasi_nusantara/app/modules/product/detail_product/models/detail_model.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/card_product.dart';
 
@@ -31,23 +32,67 @@ class DetailProductView extends GetView<ProductController> {
   });
 
   Widget _buildAppBar(DetailedProduct product) {
-    return Container(
-      height: 230,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: product.images.length,
-        itemBuilder: (context, index) {
-          return Container(
-            width: 430,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(product.images[index]),
-                fit: BoxFit.cover,
+    return Stack(
+      children: [
+        SizedBox(
+          height: 230,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: product.images.length,
+            itemBuilder: (context, index) {
+              return Container(
+                width: 430,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(product.images[index]),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            leading: Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: InkWell(
+                onTap: () => Get.back(),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(6)),
+                  ),
+                  child: const Icon(
+                    Icons.arrow_back_outlined,
+                    color: Colors.black,
+                  ),
+                ),
               ),
             ),
-          );
-        },
-      ),
+            actions: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                child: IconButton(
+                  onPressed: () {
+                    Get.to(const CartView());
+                  },
+                  icon: const Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 26.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -235,7 +280,9 @@ class DetailProductView extends GetView<ProductController> {
                   ),
                   const SizedBox(width: 6.2),
                   Text(
-                    '${product.totalReviews > 0 ? '(${product.totalReviews} Reviews)' : ('0 Reviews')}',
+                    product.totalReviews > 0
+                        ? '(${product.totalReviews} Reviews)'
+                        : ('0 Reviews'),
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w300,
                       fontSize: 10,
@@ -243,7 +290,7 @@ class DetailProductView extends GetView<ProductController> {
                       color: const Color(0xFF797979),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 4,
                   ),
                   const Icon(
@@ -251,11 +298,13 @@ class DetailProductView extends GetView<ProductController> {
                     size: 6.0,
                     color: Color(0xff797979),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 4,
                   ),
                   Text(
-                    '${product.totalReviews > 0 ? '${product.totalReviews} Ulasan' : ('0 Ulasan')}',
+                    product.totalReviews > 0
+                        ? '${product.totalReviews} Ulasan'
+                        : ('0 Ulasan'),
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w300,
                       fontSize: 10,
@@ -422,9 +471,10 @@ class DetailProductView extends GetView<ProductController> {
 
   Widget _buildNavigation(BuildContext context) {
     final ProductController controller = Get.put(ProductController());
+    final DetailProductController detail = Get.put(DetailProductController());
     controller.fetchSizes(varian);
 
-    return Container(
+    return SizedBox(
       height: 80,
       child: Row(
         children: [
@@ -433,7 +483,7 @@ class DetailProductView extends GetView<ProductController> {
             child: Container(
               height: 80,
               decoration: const BoxDecoration(
-                color: Color(0xffC00C25),
+                color: Color(0xff980019),
               ),
               child: const Icon(
                 Icons.share,
@@ -481,8 +531,7 @@ class DetailProductView extends GetView<ProductController> {
                                     fit: BoxFit.cover,
                                   ),
                                   borderRadius: const BorderRadius.all(
-                                    Radius.circular(10.0),
-                                  ),
+                                      Radius.circular(10.0)),
                                 ),
                               ),
                               const SizedBox(width: 16),
@@ -491,9 +540,9 @@ class DetailProductView extends GetView<ProductController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    product.name.length <= 12
-                                        ? product.name
-                                        : '${product.name.substring(0, 12)}...',
+                                    produk.productName.length <= 12
+                                        ? produk.productName
+                                        : '${produk.productName.substring(0, 12)}...',
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 28,
@@ -505,7 +554,7 @@ class DetailProductView extends GetView<ProductController> {
                                   Row(
                                     children: [
                                       Text(
-                                        'IDR ${product.originalPrice}',
+                                        'IDR ${produk.originalPrice}',
                                         style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 16,
@@ -519,7 +568,7 @@ class DetailProductView extends GetView<ProductController> {
                                       ),
                                       const SizedBox(width: 5),
                                       Text(
-                                        'IDR ${product.discountPrice}',
+                                        'IDR ${produk.discountedPrice}',
                                         style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 16,
@@ -552,9 +601,8 @@ class DetailProductView extends GetView<ProductController> {
                           GetBuilder<ProductController>(
                             builder: (controller) => SizeSelector(
                               sizes: controller.sizes,
-                              onButtonTap: (index) => controller.handlsizeTap(
-                                  index,
-                                  varian), // Use closure to pass variants
+                              onButtonTap: (index) =>
+                                  controller.handlsizeTap(index),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -576,27 +624,24 @@ class DetailProductView extends GetView<ProductController> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        controller.decrement(produk);
+                                        detail.decrement(produk);
                                       },
                                       child: Container(
                                         height: 32,
                                         width: 26,
                                         decoration: BoxDecoration(
                                           border: Border.all(
-                                            color: const Color(0xffF5F5F5),
-                                            width: 1,
-                                          ),
+                                              color: const Color(0xffF5F5F5),
+                                              width: 1),
                                           borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(5),
-                                            bottomLeft: Radius.circular(5),
-                                          ),
+                                              topLeft: Radius.circular(5),
+                                              bottomLeft: Radius.circular(5)),
                                         ),
                                         child: const Center(
-                                            child: Text(
-                                          "-",
-                                          style: TextStyle(
-                                              color: Color(0xff980019)),
-                                        )),
+                                          child: Text("-",
+                                              style: TextStyle(
+                                                  color: Color(0xff980019))),
+                                        ),
                                       ),
                                     ),
                                     Obx(() => Container(
@@ -604,21 +649,19 @@ class DetailProductView extends GetView<ProductController> {
                                           width: 26,
                                           decoration: const BoxDecoration(
                                             border: Border.symmetric(
-                                              horizontal: BorderSide(
-                                                  color: Color(0xffF5F5F5)),
-                                            ),
+                                                horizontal: BorderSide(
+                                                    color: Color(0xffF5F5F5))),
                                           ),
                                           child: Center(
                                             child: Text(
-                                              '${product.quantity.value}',
-                                              style: const TextStyle(
-                                                  color: Color(0xff980019)),
-                                            ),
+                                                '${produk.quantity.value}',
+                                                style: const TextStyle(
+                                                    color: Color(0xff980019))),
                                           ),
                                         )),
                                     GestureDetector(
                                       onTap: () {
-                                        controller.increment(produk);
+                                        detail.increment(produk);
                                       },
                                       child: Container(
                                         height: 32,
@@ -627,16 +670,14 @@ class DetailProductView extends GetView<ProductController> {
                                           border: Border.all(
                                               color: const Color(0xffF5F5F5)),
                                           borderRadius: const BorderRadius.only(
-                                            bottomRight: Radius.circular(5),
-                                            topRight: Radius.circular(5),
-                                          ),
+                                              bottomRight: Radius.circular(5),
+                                              topRight: Radius.circular(5)),
                                         ),
                                         child: const Center(
-                                            child: Text(
-                                          "+",
-                                          style: TextStyle(
-                                              color: Color(0xff980019)),
-                                        )),
+                                          child: Text("+",
+                                              style: TextStyle(
+                                                  color: Color(0xff980019))),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -644,39 +685,84 @@ class DetailProductView extends GetView<ProductController> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 32),
-                          ElevatedButton(
-                            onPressed: () {
-                              controller.addToCart(produk);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xff980019),
-                              minimumSize: const Size(398, 40),
-                              padding: const EdgeInsets.all(18),
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(6), // Rounded corners
-                              ),
-                            ),
-                            child: Obx(() {
-                              if (controller.isLoading.value) {
-                                return const CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
-                                );
-                              } else {
-                                return Text(
-                                  'Masukkan Ke Keranjang',
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14,
-                                    height: 0.8,
-                                    color: const Color(0xFFffffff),
+                          GetBuilder<ProductController>(
+                            builder: (controller) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Obtain an instance of CartController
+                                    CartController cartController =
+                                        Get.find<CartController>();
+
+                                    // Retrieve selected stock and selected variant ID
+                                    int selectedStock =
+                                        controller.selectedStock.value;
+                                    String selectedVariantId =
+                                        controller.selectedVariantId.value;
+
+                                    // Check if selected variant ID is not empty and selected quantity is valid
+                                    if (selectedVariantId.isNotEmpty) {
+                                      // Retrieve selected quantity
+                                      int selectedQuantity =
+                                          produk.quantity.value;
+
+                                      // Check if selected quantity is greater than 0 and less than or equal to stock
+                                      if (selectedQuantity > 0 &&
+                                          selectedQuantity <= selectedStock) {
+                                        cartController.addToCart(
+                                            selectedVariantId,
+                                            selectedQuantity);
+                                      } else {
+                                        Get.snackbar(
+                                          'Warning',
+                                          'Pilih jumlah produk yang valid',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.orange,
+                                          colorText: Colors.white,
+                                        );
+                                      }
+                                    } else {
+                                      Get.snackbar(
+                                        'Warning',
+                                        'Pilih ukuran terlebih dahulu',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: Colors.orange,
+                                        colorText: Colors.white,
+                                      );
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff980019),
+                                    minimumSize: const Size(398, 40),
+                                    padding: const EdgeInsets.all(18),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
                                   ),
-                                );
-                              }
-                            }),
-                          )
+                                  child: Obx(() {
+                                    if (controller.isLoading.value) {
+                                      return const CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white),
+                                      );
+                                    } else {
+                                      return Text(
+                                        'Masukkan Ke Keranjang',
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                          height: 0.8,
+                                          color: const Color(0xFFffffff),
+                                        ),
+                                      );
+                                    }
+                                  }),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     );
@@ -686,7 +772,7 @@ class DetailProductView extends GetView<ProductController> {
               child: Container(
                 height: 80,
                 decoration: const BoxDecoration(
-                  color: Color(0xffC00C25),
+                  color: Color(0xff980019),
                 ),
                 child: const Icon(
                   Icons.add_shopping_cart,
@@ -734,8 +820,7 @@ class DetailProductView extends GetView<ProductController> {
                                     fit: BoxFit.cover,
                                   ),
                                   borderRadius: const BorderRadius.all(
-                                    Radius.circular(10.0),
-                                  ),
+                                      Radius.circular(10.0)),
                                 ),
                               ),
                               const SizedBox(width: 16),
@@ -744,9 +829,9 @@ class DetailProductView extends GetView<ProductController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    product.name.length <= 12
-                                        ? product.name
-                                        : '${product.name.substring(0, 12)}...',
+                                    produk.productName.length <= 12
+                                        ? produk.productName
+                                        : '${produk.productName.substring(0, 12)}...',
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 28,
@@ -758,7 +843,7 @@ class DetailProductView extends GetView<ProductController> {
                                   Row(
                                     children: [
                                       Text(
-                                        'IDR ${product.originalPrice}',
+                                        'IDR ${produk.originalPrice}',
                                         style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 16,
@@ -772,7 +857,7 @@ class DetailProductView extends GetView<ProductController> {
                                       ),
                                       const SizedBox(width: 5),
                                       Text(
-                                        'IDR ${product.discountPrice}',
+                                        'IDR ${produk.discountedPrice}',
                                         style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w300,
                                           fontSize: 16,
@@ -805,9 +890,8 @@ class DetailProductView extends GetView<ProductController> {
                           GetBuilder<ProductController>(
                             builder: (controller) => SizeSelector(
                               sizes: controller.sizes,
-                              onButtonTap: (index) => controller.handlsizeTap(
-                                  index,
-                                  varian), // Use closure to pass variants
+                              onButtonTap: (index) =>
+                                  controller.handlsizeTap(index),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -836,20 +920,17 @@ class DetailProductView extends GetView<ProductController> {
                                         width: 26,
                                         decoration: BoxDecoration(
                                           border: Border.all(
-                                            color: const Color(0xffF5F5F5),
-                                            width: 1,
-                                          ),
+                                              color: const Color(0xffF5F5F5),
+                                              width: 1),
                                           borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(5),
-                                            bottomLeft: Radius.circular(5),
-                                          ),
+                                              topLeft: Radius.circular(5),
+                                              bottomLeft: Radius.circular(5)),
                                         ),
                                         child: const Center(
-                                            child: Text(
-                                          "-",
-                                          style: TextStyle(
-                                              color: Color(0xff980019)),
-                                        )),
+                                          child: Text("-",
+                                              style: TextStyle(
+                                                  color: Color(0xff980019))),
+                                        ),
                                       ),
                                     ),
                                     Obx(() => Container(
@@ -857,16 +938,14 @@ class DetailProductView extends GetView<ProductController> {
                                           width: 26,
                                           decoration: const BoxDecoration(
                                             border: Border.symmetric(
-                                              horizontal: BorderSide(
-                                                  color: Color(0xffF5F5F5)),
-                                            ),
+                                                horizontal: BorderSide(
+                                                    color: Color(0xffF5F5F5))),
                                           ),
                                           child: Center(
                                             child: Text(
-                                              '${product.quantity.value}',
-                                              style: const TextStyle(
-                                                  color: Color(0xff980019)),
-                                            ),
+                                                '${produk.quantity.value}',
+                                                style: const TextStyle(
+                                                    color: Color(0xff980019))),
                                           ),
                                         )),
                                     GestureDetector(
@@ -880,16 +959,14 @@ class DetailProductView extends GetView<ProductController> {
                                           border: Border.all(
                                               color: const Color(0xffF5F5F5)),
                                           borderRadius: const BorderRadius.only(
-                                            bottomRight: Radius.circular(5),
-                                            topRight: Radius.circular(5),
-                                          ),
+                                              bottomRight: Radius.circular(5),
+                                              topRight: Radius.circular(5)),
                                         ),
                                         child: const Center(
-                                            child: Text(
-                                          "+",
-                                          style: TextStyle(
-                                              color: Color(0xff980019)),
-                                        )),
+                                          child: Text("+",
+                                              style: TextStyle(
+                                                  color: Color(0xff980019))),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -903,10 +980,10 @@ class DetailProductView extends GetView<ProductController> {
                               controller.isLoading.value = true;
                               controller.buyNow(produk);
                               controller.isLoading.value = false;
-                              CheckoutProductController checkoutController =
-                                  CheckoutProductController();
                               Get.to(() => CheckOutProduct(
-                                  payment: checkoutController.payment.first));
+                                    payment: controller.payment.first,
+                                    subtotal: controller.totalPrice.value,
+                                  ));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xff980019),
@@ -959,7 +1036,10 @@ class DetailProductView extends GetView<ProductController> {
                   alignment: Alignment.center,
                   child: Text(
                     "Beli Sekarang",
-                    style: TextStyle(color: Color(0xffC00C25), fontSize: 16),
+                    style: TextStyle(
+                        color: Color(0xff980019),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -973,40 +1053,6 @@ class DetailProductView extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(14.0),
-          child: InkWell(
-            onTap: () => Get.back(),
-            child: const CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 24.0,
-              child: Icon(
-                Icons.arrow_back_outlined,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
-            child: IconButton(
-              onPressed: () {
-                Get.to(CartView());
-              },
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                size: 26.0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Container(
           color: const Color(0xffEEF1FF),
@@ -1025,9 +1071,6 @@ class DetailProductView extends GetView<ProductController> {
                 height: 7,
               ),
               _buildReview(),
-              const SizedBox(
-                height: 5,
-              ),
               _buildSingleReview(review),
             ],
           ),

@@ -4,121 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/card_product.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/category.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/opsi_pengiriman_card.dart';
-import 'package:kreasi_nusantara/app/modules/product/widgets/payment.dart';
 import 'package:kreasi_nusantara/app/modules/product/widgets/size.dart';
 
 class OpsiPengirimanController extends GetxController {
-  // final List<ProductCard> products = [
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl: "https://www.gubukbaju.com/uploads/atasan_kupu_kupu1_tb.jpg",
-  //     productName: "Endek Bali",
-  //     originalPrice: "300000",
-  //     discountPercentage: "40",
-  //     discountedPrice: "200000",
-  //     rating: "4.9",
-  //     totalReviews: 451,
-  //     quantity: 0,
-  //   ),
-  //   ProductCard(
-  //     imageUrl:
-  //         "https://cdn1-production-images-kly.akamaized.net/80t7gUkD0qRDYQFDiFjc4L8ZQXI=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4226062/original/015474800_1668420778-2021_0226_15092000.jpg",
-  //     productName: "Batik Tulis",
-  //     originalPrice: "500000",
-  //     discountPercentage: "30",
-  //     discountedPrice: "350000",
-  //     rating: "4.8",
-  //     totalReviews: 234,
-  //     quantity: 0,
-  //   ),
-  //   // Add more products as needed
-  // ];
-
-  final List<Paymentwidget> payment = [
-    const Paymentwidget(
-      paymentImage:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/LinkAja.svg/2048px-LinkAja.svg.png",
-      paymentName: "BCA",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://www.upulsa.com/images/produk/ewallet/ovo-1000-214-fqjj.jpg",
-      paymentName: "OVO",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BCA-512.png",
-      paymentName: "BCA Virtual Account",
-    ),
-    const Paymentwidget(
-      paymentImage:
-          "https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BNI-512.png",
-      paymentName: "BNI Virtual Account",
-    ),
-  ];
-
   final List<ShippingOption> shipping = [
     const ShippingOption(
       kurir: "JNE",
@@ -182,21 +70,6 @@ class OpsiPengirimanController extends GetxController {
   }
 
   var selectedLocation = Rx<LatLng?>(null);
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment(ProductCard product) {
     product.quantity++;

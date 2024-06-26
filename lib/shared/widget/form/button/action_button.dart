@@ -23,13 +23,13 @@ class QActionButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => onPressed(),
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all<Color>(primaryColor),
-          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+          backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6.0),
             ),
           ),
-          fixedSize: WidgetStateProperty.all<Size>(
+          fixedSize: MaterialStateProperty.all<Size>(
             Size(horizontalPadding, 50), // Atur lebar dan tinggi
           ),
         ),

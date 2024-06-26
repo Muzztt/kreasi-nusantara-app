@@ -4,20 +4,6 @@ class MainNavigationController extends GetxController {
   //TODO: Implement MainNavigationController
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 
@@ -25,5 +11,9 @@ class MainNavigationController extends GetxController {
 
   void changeIndex(int index) {
     selectedIndex.value = index;
+  }
+
+  void navigateToProduct() {
+    selectedIndex.value = 1;
   }
 }

@@ -223,10 +223,14 @@ class HomePageView extends GetView<HomePageController> {
                                       const SizedBox(
                                         width: 2.0,
                                       ),
-                                      Text(
-                                        item["location"].toString(),
-                                        style: const TextStyle(
-                                          fontSize: 10.0,
+                                      Expanded(
+                                        child: Text(
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                          item["location"].toString(),
+                                          style: const TextStyle(
+                                            fontSize: 10.0,
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(
@@ -243,6 +247,7 @@ class HomePageView extends GetView<HomePageController> {
                                       Expanded(
                                         child: Text(
                                           overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
                                           DateTime.tryParse(
                                                       item["date"].toString())
                                                   ?.edMMMy ??
