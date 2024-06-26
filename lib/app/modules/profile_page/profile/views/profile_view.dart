@@ -126,8 +126,8 @@ class ProfileView extends GetView<ProfileController> {
             fontSize: 14,
           ),
         ),
-        onTap: () {
-          Get.to(page);
+        onTap: () async {
+          await Get.to(page);
         },
       ),
     );

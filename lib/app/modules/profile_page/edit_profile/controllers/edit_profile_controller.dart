@@ -1,10 +1,14 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kreasi_nusantara/app/modules/login_page/main_navigation/views/main_navigation_view.dart';
+import 'package:kreasi_nusantara/service/user_service/user_service.dart';
+import 'package:kreasi_nusantara/shared/util/log/log.dart';
+import 'package:kreasi_nusantara/shared/util/show_loading/show_loading.dart';
 
 class EditProfileViewController extends GetxController {
-  var name = ''.obs;
-  var phoneNumber = ''.obs;
-  var bio = ''.obs;
+  var name = '';
+  var phoneNumber = '';
+  var bio = '';
 
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -28,11 +32,27 @@ class EditProfileViewController extends GetxController {
     super.onClose();
   }
 
-  void updateProfile() {
-    // Update logic here
-    // For example, you can call an API to update the profile details
-    print('Name: ${name.value}');
-    print('Phone Number: ${phoneNumber.value}');
-    print('Bio: ${bio.value}');
+  String? firstName;
+  String? lastName;
+  String? phone;
+  String? gender;
+  String? dateOfBirth;
+
+  void updateProfile() async {
+    try {
+      showLoading();
+      await UserService().update("me", {
+        "first_name": firstName,
+        "last_name": lastName,
+        "phone": phone,
+        "gender": gender,
+        "date_of_birth": dateOfBirth
+      });
+      hideLoading();
+      Get.to(() => const MainNavigationView());
+      ss("Berhasil mengupdate data");
+    } on Exception catch (err) {
+      se(err);
+    }
   }
 }

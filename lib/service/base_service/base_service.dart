@@ -53,10 +53,10 @@ class BaseService<T> {
     return response.data;
   }
 
-  Future update(int id, Map data) async {
-    var url = "$baseUrl/$endpoint/$id";
+  Future update(dynamic id, Map data) async {
+    var url = "$baseUrl$endpoint/$id";
 
-    var response = await dio.post(
+    var response = await dio.put(
       url,
       options: Options(
         headers: {
@@ -68,7 +68,7 @@ class BaseService<T> {
     return response.data;
   }
 
-  Future delete(int id) async {
+  Future delete(dynamic id) async {
     var url = "$baseUrl/$endpoint/$id";
 
     var response = await dio.delete(
