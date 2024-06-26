@@ -51,10 +51,17 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        item["username"],
+                        "${item["first_name"]} ${item["last_name"]}",
                         style: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "@${item["username"]}",
+                        style: const TextStyle(
+                          fontSize: 12,
                           color: Colors.white,
                         ),
                       ),
