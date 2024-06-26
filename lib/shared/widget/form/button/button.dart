@@ -20,29 +20,31 @@ class QButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width ?? MediaQuery.of(context).size.width,
-      height: height ?? 42,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              4.0,
+    return LayoutBuilder(builder: (context, constraints) {
+      return SizedBox(
+        width: width ?? MediaQuery.of(context).size.width,
+        height: height ?? 42,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                4.0,
+              ),
+            ),
+            backgroundColor: colorButton ?? primaryColor,
+          ),
+          onPressed: () => onPressed(),
+          child: Expanded(
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
           ),
-          backgroundColor: colorButton ?? primaryColor,
         ),
-        onPressed: () => onPressed(),
-        child: Expanded(
-          child: Text(
-            label,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-            ),
-          ),
-        ),
-      ),
-    );
+      );
+    });
   }
 }

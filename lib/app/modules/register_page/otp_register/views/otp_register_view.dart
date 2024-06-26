@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:kreasi_nusantara/app/modules/login_page/main_navigation/views/main_navigation_view.dart';
+import 'package:kreasi_nusantara/app/modules/register_page/register/controllers/register_controller.dart';
 import 'package:kreasi_nusantara/shared/util/dialog/custom_bottom_sheet/custom_bottom_sheet.dart';
 import 'package:kreasi_nusantara/shared/util/dialog/info_dialog/info_dialog.dart';
 import 'package:kreasi_nusantara/shared/widget/form/button/button.dart';
@@ -47,15 +48,17 @@ class OtpRegisterView extends GetView<OtpRegisterController> {
               const SizedBox(height: 24.0),
               QOtpField(
                 length: 4,
-                onChanged: (otp) {},
+                onChanged: (otp) {
+                  registerController.otp = otp;
+                },
               ),
               const SizedBox(
                 height: 24.0,
               ),
               QButton(
                 label: "Lanjut",
-                onPressed: () {
-                  showInfoDialog(context);
+                onPressed: () async {
+                  await registerController.verifyOtp();
                 },
               ),
             ],
@@ -77,9 +80,7 @@ void showInfoDialog(BuildContext context) {
         icon: Icons.check_circle_rounded,
         iconColor: Colors.green,
         onPressed: () {
-          Get.offAll(
-            const MainNavigationView(),
-          );
+          Get.back();
         },
       );
     },

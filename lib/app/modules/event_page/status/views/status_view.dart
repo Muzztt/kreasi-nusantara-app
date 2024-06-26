@@ -74,7 +74,7 @@ class StatusView extends GetView<StatusController> {
         padding: const EdgeInsets.all(12.0),
         child: QActionButton(
           label: "Kembali Ke Beranda",
-          onPressed: () => Get.offAll(const MainNavigationView()),
+          onPressed: () => Get.to(const MainNavigationView()),
           verticalPadding: 10.0, // Atur padding vertikal
           horizontalPadding: 300.0,
         ),

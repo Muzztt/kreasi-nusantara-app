@@ -1,3 +1,7 @@
+import 'package:kreasi_nusantara/shared/util/type_extension/date_extension.dart';
+import 'package:kreasi_nusantara/shared/util/type_extension/dynamic_extension.dart';
+import 'package:kreasi_nusantara/shared/util/type_extension/num_extension.dart';
+import 'package:kreasi_nusantara/shared/widget/list/list_view.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,13 +55,10 @@ class EventView extends GetView<EventController> {
                       onButtonTap: controller.buttonTap,
                     ),
                   ),
-                  ListView.builder(
-                    itemCount: item.length,
+                  QListView(
                     shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    clipBehavior: Clip.none,
-                    itemBuilder: (context, index) {
-                      EventDummy items = item[index];
+                    endpoint: "events",
+                    itemBuilder: (item, index) {
                       return Card(
                         color: Colors.white,
                         child: Padding(
@@ -71,8 +72,9 @@ class EventView extends GetView<EventController> {
                                 margin: const EdgeInsets.only(right: 10.0),
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage(
-                                      items.photo,
+                                    image: NetworkImage(
+                                      item["image"] ??
+                                          "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
                                     ),
                                     fit: BoxFit.cover,
                                   ),
@@ -118,7 +120,7 @@ class EventView extends GetView<EventController> {
                                             6.0), // Radius border kotak
                                       ),
                                       child: Text(
-                                        items.category,
+                                        item["category"],
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: primaryColor,
@@ -131,7 +133,7 @@ class EventView extends GetView<EventController> {
                                       height: 6.0,
                                     ),
                                     Text(
-                                      items.title,
+                                      item["name"],
                                       style: const TextStyle(
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
@@ -153,7 +155,9 @@ class EventView extends GetView<EventController> {
                                           width: 2.0,
                                         ),
                                         Text(
-                                          items.location,
+                                          item["location"]["building"]
+                                              .toString(),
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                             fontSize: 10.0,
                                           ),
@@ -172,7 +176,9 @@ class EventView extends GetView<EventController> {
                                         Expanded(
                                           child: Text(
                                             overflow: TextOverflow.ellipsis,
-                                            items.date,
+                                            DateTime.tryParse(item["date"])
+                                                    ?.edMMMy ??
+                                                "-",
                                             style: const TextStyle(
                                               fontSize: 10.0,
                                             ),
@@ -186,17 +192,12 @@ class EventView extends GetView<EventController> {
                                     Row(
                                       children: [
                                         Text(
-                                          items.price,
+                                          double.tryParse(
+                                                  item["min_price"].toString())
+                                              .currency,
                                           style: const TextStyle(
-                                            fontSize: 10.0,
+                                            fontSize: 12.0,
                                             fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          items.person,
-                                          style: TextStyle(
-                                            fontSize: 8.0,
-                                            color: secondaryTextColor,
                                           ),
                                         ),
                                         const Spacer(),

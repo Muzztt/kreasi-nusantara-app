@@ -25,7 +25,7 @@ class ForgotPasswordController extends GetxController {
       print(
           'Navigating to ForgotPasswordConfirmationOtpView with email: ${email.value}');
 
-      Get.offAll(ForgotPasswordConfirmationOtpView(), arguments: email.value);
+      Get.to(ForgotPasswordConfirmationOtpView(), arguments: email.value);
     } catch (e) {
       Get.snackbar('Error', e.toString());
     } finally {

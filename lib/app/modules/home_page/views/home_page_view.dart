@@ -5,8 +5,11 @@ import 'package:kreasi_nusantara/app/modules/event_kalender/views/event_kalender
 import 'package:kreasi_nusantara/app/modules/event_page/event_detail/views/event_detail_view.dart';
 import 'package:kreasi_nusantara/models/event_model/event_dummy/event_dummy.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
+import 'package:kreasi_nusantara/shared/util/type_extension/date_extension.dart';
+import 'package:kreasi_nusantara/shared/util/type_extension/num_extension.dart';
 import 'package:kreasi_nusantara/shared/widget/form/button/button_2.dart';
 import 'package:kreasi_nusantara/shared/widget/form/search_field/search_field.dart';
+import 'package:kreasi_nusantara/shared/widget/list/list_view.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../controllers/home_page_controller.dart';
@@ -103,13 +106,30 @@ class HomePageView extends GetView<HomePageController> {
                 const SizedBox(
                   height: 12.0,
                 ),
-                ListView.builder(
-                  itemCount: 2,
+                QListView(
+                  endpoint: "events/upcoming",
                   shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  clipBehavior: Clip.none,
-                  itemBuilder: (context, index) {
-                    EventDummy items = item[index];
+                  emptyBuilder: () {
+                    return Container(
+                      height: 160.0,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                        color: Colors.grey[200],
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "No event",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemBuilder: (item, index) {
                     return Card(
                       color: Colors.white,
                       child: Padding(
@@ -123,9 +143,8 @@ class HomePageView extends GetView<HomePageController> {
                               margin: const EdgeInsets.only(right: 10.0),
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                    items.photo,
-                                  ),
+                                  image: AssetImage(item["image"] ??
+                                      "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg"),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius: const BorderRadius.all(
@@ -170,7 +189,7 @@ class HomePageView extends GetView<HomePageController> {
                                           6.0), // Radius border kotak
                                     ),
                                     child: Text(
-                                      items.category,
+                                      item["category"] ?? "-",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: primaryColor,
@@ -183,7 +202,7 @@ class HomePageView extends GetView<HomePageController> {
                                     height: 6.0,
                                   ),
                                   Text(
-                                    items.title,
+                                    item["name"] ?? "-",
                                     style: const TextStyle(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.bold,
@@ -205,7 +224,7 @@ class HomePageView extends GetView<HomePageController> {
                                         width: 2.0,
                                       ),
                                       Text(
-                                        items.location,
+                                        item["location"].toString(),
                                         style: const TextStyle(
                                           fontSize: 10.0,
                                         ),
@@ -224,7 +243,10 @@ class HomePageView extends GetView<HomePageController> {
                                       Expanded(
                                         child: Text(
                                           overflow: TextOverflow.ellipsis,
-                                          items.date,
+                                          DateTime.tryParse(
+                                                      item["date"].toString())
+                                                  ?.edMMMy ??
+                                              "-",
                                           style: const TextStyle(
                                             fontSize: 10.0,
                                           ),
@@ -238,14 +260,17 @@ class HomePageView extends GetView<HomePageController> {
                                   Row(
                                     children: [
                                       Text(
-                                        items.price,
+                                        double.tryParse(item["minimum_price"]
+                                                    .toString())
+                                                ?.currency ??
+                                            "-",
                                         style: const TextStyle(
                                           fontSize: 10.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
-                                        items.person,
+                                        "items.person",
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: secondaryTextColor,
@@ -271,7 +296,7 @@ class HomePageView extends GetView<HomePageController> {
                   },
                 ),
                 const SizedBox(
-                  height: 8.0,
+                  height: 20.0,
                 ),
                 Row(
                   children: [

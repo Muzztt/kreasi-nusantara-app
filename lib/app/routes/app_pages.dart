@@ -175,7 +175,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ARTICLE_DETAIL,
-      page: () => const ArticleDetailView(),
+      page: () => ArticleDetailView(
+        item: Get.arguments,
+      ),
       binding: ArticleDetailBinding(),
     ),
     GetPage(

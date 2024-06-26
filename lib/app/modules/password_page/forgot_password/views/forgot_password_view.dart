@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:kreasi_nusantara/app/modules/login_page/login/controllers/login_controller.dart';
 import 'package:kreasi_nusantara/app/modules/password_page/forgot_password_confirmation_otp/views/forgot_password_confirmation_otp_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import 'package:kreasi_nusantara/shared/util/dialog/custom_bottom_sheet/custom_bottom_sheet.dart';
@@ -55,9 +56,9 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
               QTextField(
                 label: "Email",
                 validator: Validator.required,
-                value: null,
+                value: loginController.email,
                 onChanged: (value) {
-                  controller.email.value = value;
+                  loginController.email = value;
                 },
               ),
               const SizedBox(
@@ -69,7 +70,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     colorButton: primaryColor,
                     onPressed: () {
                       // controller.sendForgotPasswordRequest();
-                      Get.offAll(ForgotPasswordConfirmationOtpView());
+                      Get.to(ForgotPasswordConfirmationOtpView());
                     });
               }),
             ],

@@ -25,11 +25,16 @@ import 'package:kreasi_nusantara/app/modules/login_page/splash_screen/bindings/s
 import 'package:kreasi_nusantara/firebase_options.dart';
 
 import 'package:kreasi_nusantara/shared/theme/theme.dart';
+import 'package:kreasi_nusantara/shared/util/db_service/db_service.dart';
+import 'package:kreasi_nusantara/shared/util/dio_interceptors/dio_interceptors.dart';
 
 import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DBService.init();
+  Diointerceptors.init();
+
   Get.put(ProductViewController());
   Get.put(DetailProductController());
   Get.put(CartController());

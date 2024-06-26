@@ -39,7 +39,7 @@ class ForgotPasswordConfirmationOtpController extends GetxController {
           await authService.verifyOtp(email: email.value, otp: otp.value);
       if (isVerified) {
         Get.snackbar('Success', 'OTP verified successfully');
-        Get.offAll(() => const NewPasswordView());
+        Get.to(() => const NewPasswordView());
       } else {
         Get.snackbar('Error', 'Invalid OTP');
       }

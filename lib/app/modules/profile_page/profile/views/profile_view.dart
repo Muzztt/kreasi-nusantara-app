@@ -5,8 +5,10 @@ import 'package:kreasi_nusantara/app/modules/profile_page/edit_profile/views/edi
 import 'package:kreasi_nusantara/app/modules/profile_page/faq/views/faq_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/history/views/history_view.dart';
 import 'package:kreasi_nusantara/app/modules/profile_page/privacy/views/privacy_view.dart';
+import 'package:kreasi_nusantara/service/auth_service/auth_service.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import 'package:kreasi_nusantara/shared/widget/card/card_ticket3.dart';
+import 'package:kreasi_nusantara/shared/widget/list/detail_view.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -14,82 +16,98 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        elevation: 0,
-      ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 260,
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-            decoration: const BoxDecoration(
-              color: Color(0xFF980019),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(28),
-                bottomRight: Radius.circular(28),
-              ),
+    return QDetailView(
+        endpoint: "users",
+        id: "me",
+        itemBuilder: (item) {
+          // Your detail here
+
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: primaryColor,
+              elevation: 0,
             ),
-            child: const Column(
+            body: Column(
               children: [
-                CircleAvatar(
-                  radius: 58.0,
-                  backgroundImage: NetworkImage(
-                    "https://res.cloudinary.com/dotz74j1p/raw/upload/v1716044979/nr7gt66alfhmu9vaxu2u.png",
+                Container(
+                  width: double.infinity,
+                  height: 260,
+                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF980019),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(28),
+                      bottomRight: Radius.circular(28),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 58.0,
+                        backgroundImage: NetworkImage(
+                          item["photo"] ??
+                              "https://res.cloudinary.com/dotz74j1p/image/upload/v1715660683/no-image.jpg",
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        item["username"],
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        item["email"],
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        item["bio"] ?? "-",
+                        textAlign: TextAlign.center,
+                        style:
+                            const TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Mamad Panjaitan',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.all(10.0),
+                    children: [
+                      _buildProfileOption(
+                        Icons.edit,
+                        'Edit Profil',
+                        const EditProfileView(),
+                      ),
+                      _buildProfileOption(
+                        Icons.history,
+                        'History',
+                        HistoryView(),
+                      ),
+                      _buildTicketsSection(),
+                      _buildProfileOption(
+                        Icons.lock_outline,
+                        'Edit privasi',
+                        const PrivacyView(),
+                      ),
+                      _buildProfileOption(
+                        Icons.quiz_outlined,
+                        'Frequently asked question',
+                        const FaqView(),
+                      ),
+                      _buildLogoutOption(),
+                    ],
                   ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'my name is Mamad, a UI/UX Designer who love music and traditional culture.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15, color: Colors.white),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(10.0),
-              children: [
-                _buildProfileOption(
-                  Icons.edit,
-                  'Edit Profil',
-                  const EditProfileView(),
-                ),
-                _buildProfileOption(
-                  Icons.history,
-                  'History',
-                  HistoryView(),
-                ),
-                _buildTicketsSection(),
-                _buildProfileOption(
-                  Icons.lock_outline,
-                  'Edit privasi',
-                  const PrivacyView(),
-                ),
-                _buildProfileOption(
-                  Icons.quiz_outlined,
-                  'Frequently asked question',
-                  const FaqView(),
-                ),
-                _buildLogoutOption(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 
   Widget _buildProfileOption(IconData icon, String label, Widget page) {
@@ -209,6 +227,7 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
         onTap: () {
+          AuthService().logout();
           Get.offAll(const OnboardingView());
         },
       ),

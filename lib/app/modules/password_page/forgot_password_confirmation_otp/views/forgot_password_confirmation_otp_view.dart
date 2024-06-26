@@ -65,7 +65,7 @@ class ForgotPasswordConfirmationOtpView
                   colorButton: primaryColor,
                   onPressed: () {
                     // controller.verifyOtp();
-                    Get.offAll(const NewPasswordView());
+                    Get.to(const NewPasswordView());
                   },
                 );
               }),

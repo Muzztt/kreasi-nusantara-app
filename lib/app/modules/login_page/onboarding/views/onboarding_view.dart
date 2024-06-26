@@ -61,7 +61,7 @@ class OnboardingView extends GetView<OnboardingController> {
                       child: QOutlineButton(
                           label: "Daftar",
                           color: primaryColor,
-                          onPressed: () => Get.offAll(const RegisterView())),
+                          onPressed: () => Get.to(const RegisterView())),
                     ),
                     const SizedBox(
                       width: 8.0,
@@ -70,7 +70,7 @@ class OnboardingView extends GetView<OnboardingController> {
                       child: QButton(
                         label: "Masuk",
                         colorButton: primaryColor,
-                        onPressed: () => Get.offAll(const LoginView()),
+                        onPressed: () => Get.to(const LoginView()),
                       ),
                     ),
                   ],

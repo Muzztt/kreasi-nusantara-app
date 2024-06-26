@@ -1,22 +1,24 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:kreasi_nusantara/env.dart';
 import 'package:kreasi_nusantara/models/forgot_password/forgot_password.dart';
 import 'package:kreasi_nusantara/service/logging/logging.dart';
+import 'package:kreasi_nusantara/shared/util/db_service/db_service.dart';
+import 'package:kreasi_nusantara/shared/util/dio_interceptors/dio_interceptors.dart';
+
+String? get currentUsername => DBService.get("username");
+String? get currentEmail => DBService.get("email");
+String? get token => DBService.get("token");
 
 class AuthService {
-  final Dio _dio;
-
-  AuthService() : _dio = Dio(BaseOptions(baseUrl: baseUrl)) {
-    _dio.interceptors.add(Logging());
-  }
-
   Future<Map<String, dynamic>> login({
     required String email,
     required String password,
   }) async {
     try {
-      var response = await _dio.post(
-        "/api/v1/login",
+      var response = await dio.post(
+        "login",
         options: Options(
           headers: {
             "Content-Type": "application/json",
@@ -27,6 +29,11 @@ class AuthService {
           "password": password,
         },
       );
+
+      DBService.set("username", response.data["data"]["username"]);
+      DBService.set("email", response.data["data"]["email"]);
+      DBService.set("token", response.data["data"]["token"]);
+
       return response.data;
     } catch (err) {
       throw Exception('Failed to login: $err');
@@ -35,8 +42,8 @@ class AuthService {
 
   Future<ForgotPassword> forgotPassword(String email) async {
     try {
-      final response = await _dio.post(
-        "/api/v1/forgot-password",
+      final response = await dio.post(
+        "forgot-password",
         data: {
           'email': email,
         },
@@ -59,8 +66,8 @@ class AuthService {
 
   Future<bool> verifyOtp({required String email, required String otp}) async {
     try {
-      final response = await _dio.post(
-        "/api/v1/verify-otp",
+      final response = await dio.post(
+        "verify-otp",
         data: {
           'email': email,
           'otp': otp,
@@ -81,6 +88,57 @@ class AuthService {
         print('Status code: ${e.response?.statusCode}');
       }
       throw Exception('Failed to verify OTP: $e');
+    }
+  }
+
+  Future resetPassword(String email) async {
+    try {
+      await dio.post(
+        "reset-password",
+        data: {
+          'email': email,
+        },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+        ),
+      );
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  Future register({
+    required String firstName,
+    required String lastName,
+    required String username,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await dio.post(
+        "register",
+        data: json.encode({
+          'first_name': firstName,
+          'last_name': lastName,
+          'username': username,
+          'email': email,
+          'password': password,
+        }),
+      );
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  Future logout() async {
+    try {
+      DBService.clear("username");
+      DBService.clear("email");
+      DBService.clear("token");
+    } on Exception catch (e) {
+      throw Exception('$e');
     }
   }
 }

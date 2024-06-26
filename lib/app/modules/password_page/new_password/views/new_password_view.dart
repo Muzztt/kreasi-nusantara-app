@@ -101,7 +101,7 @@ void showInfoDialog(BuildContext context) {
         icon: Icons.check_circle_rounded,
         iconColor: Colors.green,
         onPressed: () {
-          Get.offAll(
+          Get.to(
             const MainNavigationView(),
           );
         },

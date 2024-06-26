@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 BuildContext get globalContext {
-  return Get.currentContext;
+  return Get.context!;
 }
 
-class Get {
+class _Get {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static get currentContext {
@@ -44,7 +45,7 @@ class Get {
   }
 
   static ThemeData get theme {
-    return Theme.of(Get.currentContext);
+    return Theme.of(globalContext);
   }
 }
 

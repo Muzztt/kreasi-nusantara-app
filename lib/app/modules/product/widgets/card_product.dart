@@ -70,22 +70,25 @@ class ProductCard extends StatelessWidget {
         child: Column(
           children: [
             imageUrl != null && imageUrl!.isNotEmpty
-                ? Image.network(
-                    imageUrl!,
-                    width: 171.0,
-                    height: 153.0,
-                    fit: BoxFit.cover,
+                ? Expanded(
+                    child: Image.network(
+                      imageUrl!,
+                      width: 171.0,
+                      height: 153.0,
+                      fit: BoxFit.cover,
+                    ),
                   )
-                : Image.network(
-                    'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg',
-                    width: 171.0,
-                    height: 153.0,
-                    fit: BoxFit.cover,
+                : Expanded(
+                    child: Image.network(
+                      'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg',
+                      width: 171.0,
+                      height: 153.0,
+                      fit: BoxFit.cover,
+                    ),
                   ),
             const SizedBox(
               height: 6,
             ),
-            const Spacer(),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -94,7 +97,6 @@ class ProductCard extends StatelessWidget {
                     fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),
-            const Spacer(),
             Align(
               alignment: Alignment.centerLeft,
               child: Row(
@@ -113,7 +115,7 @@ class ProductCard extends StatelessWidget {
                   Text(
                     "$discountPercentage%",
                     style: GoogleFonts.poppins(
-                      color: Color(0xffC00C25),
+                      color: const Color(0xffC00C25),
                       fontWeight: FontWeight.w600,
                       fontSize: 10,
                     ),
@@ -121,19 +123,17 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Spacer(),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "IDR $discountedPrice",
                 style: GoogleFonts.poppins(
-                  color: Color(0xff3E3E3E),
+                  color: const Color(0xff3E3E3E),
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
                 ),
               ),
             ),
-            const Spacer(),
             Row(
               children: [
                 Text(formattedRating),
@@ -153,12 +153,10 @@ class ProductCard extends StatelessWidget {
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w300,
                       fontSize: 10,
-                      color: Color(0xff797979)),
+                      color: const Color(0xff797979)),
                 ),
-                const Spacer(),
               ],
             ),
-            const Spacer(),
           ],
         ),
       ),

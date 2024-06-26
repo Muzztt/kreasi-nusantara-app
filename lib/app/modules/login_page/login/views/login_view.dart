@@ -5,6 +5,7 @@ import 'package:kreasi_nusantara/app/modules/password_page/forgot_password/views
 import 'package:kreasi_nusantara/app/modules/register_page/register/views/register_view.dart';
 import 'package:kreasi_nusantara/shared/theme/theme_config.dart';
 import 'package:kreasi_nusantara/app/modules/login_page/main_navigation/views/main_navigation_view.dart';
+import 'package:kreasi_nusantara/shared/util/db_service/db_service.dart';
 import 'package:kreasi_nusantara/shared/util/dialog/custom_bottom_sheet/custom_bottom_sheet.dart';
 import 'package:kreasi_nusantara/shared/util/validator/validator.dart';
 
@@ -64,9 +65,11 @@ class LoginView extends GetView<LoginController> {
                     label: "Email / Username",
                     validator: Validator.email,
                     suffixIcon: Icons.email,
-                    value: null,
+                    value: controller.email,
                     onChanged: (value) {
+                      controller.email = value;
                       controller.emailController.text = value;
+                      DBService.set("email", value);
                     },
                   ),
                   QTextField(
@@ -74,9 +77,11 @@ class LoginView extends GetView<LoginController> {
                     obscure: true,
                     validator: Validator.required,
                     // suffixIcon: Icons.visibility_off,
-                    value: null,
+                    value: controller.password,
                     onChanged: (value) {
+                      controller.password = value;
                       controller.passwordController.text = value;
+                      DBService.set("password", value);
                     },
                   ),
                   Row(
@@ -84,7 +89,7 @@ class LoginView extends GetView<LoginController> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
-                        onTap: () => Get.offAll(const ForgotPasswordView()),
+                        onTap: () => Get.to(const ForgotPasswordView()),
                         child: Text(
                           "Lupa Password",
                           style: TextStyle(
@@ -113,7 +118,7 @@ class LoginView extends GetView<LoginController> {
                                 label: "Masuk menggunakan google",
                                 color: primaryColor,
                                 onPressed: () =>
-                                    Get.offAll(const MainNavigationView()),
+                                    Get.to(const MainNavigationView()),
                               ),
                               const SizedBox(
                                 height: 12.0,
@@ -140,7 +145,7 @@ class LoginView extends GetView<LoginController> {
                         ),
                       ),
                       InkWell(
-                        onTap: () => Get.offAll(const RegisterView()),
+                        onTap: () => Get.to(const RegisterView()),
                         child: Text(
                           "Daftar",
                           style: TextStyle(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:kreasi_nusantara/app/modules/register_page/otp_register/views/otp_register_view.dart';
+import 'package:kreasi_nusantara/app/modules/register_page/register/controllers/register_controller.dart';
 import 'package:kreasi_nusantara/shared/util/dialog/custom_bottom_sheet/custom_bottom_sheet.dart';
 import 'package:kreasi_nusantara/shared/util/validator/validator.dart';
 import 'package:kreasi_nusantara/shared/widget/form/button/button.dart';
@@ -57,30 +58,36 @@ class RegisterDetailView extends GetView<RegisterDetailController> {
                   label: "Username",
                   validator: Validator.email,
                   suffixIcon: Icons.email,
-                  value: null,
-                  onChanged: (value) {},
+                  value: registerController.username,
+                  onChanged: (value) {
+                    registerController.username = value;
+                  },
                 ),
                 QTextField(
                   label: "Email",
                   validator: Validator.email,
                   suffixIcon: Icons.email,
-                  value: null,
-                  onChanged: (value) {},
+                  value: registerController.email,
+                  onChanged: (value) {
+                    registerController.email = value;
+                  },
                 ),
                 QTextField(
                   label: "Password",
                   obscure: true,
                   validator: Validator.required,
                   suffixIcon: Icons.password,
-                  value: null,
-                  onChanged: (value) {},
+                  value: registerController.password,
+                  onChanged: (value) {
+                    registerController.password = value;
+                  },
                 ),
                 const SizedBox(
                   height: 18.0,
                 ),
                 QButton(
                   label: "Daftar",
-                  onPressed: () => Get.offAll(const OtpRegisterView()),
+                  onPressed: () => registerController.register(),
                 ),
               ],
             ),

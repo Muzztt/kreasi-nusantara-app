@@ -1,8 +1,8 @@
 import 'package:kreasi_nusantara/service/base_service/base_service.dart';
 
-class ArticleService extends BaseService<Map<String, dynamic>> {
+class BeritaService extends BaseService<Map<String, dynamic>> {
   @override
-  String get endpoint => "articles";
+  String get endpoint => "events";
 
   @override
   Map<String, dynamic> decode(data) {
